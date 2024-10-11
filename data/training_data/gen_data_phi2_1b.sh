@@ -35,9 +35,10 @@ animation_dt=1.0
 sims_to_animate="0 1 2 3"
 animation_duration=10
 
-mkdir -p logs
+mkdir -p logs/gen_training_data
 
-echo Logging information to logs/${runname}.o
+logfile=logs/gen_training_data/${runname}.o
+echo Logging information to ${logfile}
 echo "Generating training data..."
 
 generate_data \
@@ -62,7 +63,7 @@ generate_data \
     --duration $animation_duration \
     --animation_dt $animation_dt \
     --sims_to_animate $sims_to_animate \
-> logs/${runname}.o 
+> $logfile 
 
 echo "Generating validation data..."
 
@@ -88,7 +89,7 @@ generate_data \
     --duration $animation_duration \
     --animation_dt $animation_dt \
     --sims_to_animate $sims_to_animate \
->> logs/${runname}.o 
+>> $logfile 
 
 echo "Generating testing data..."
 
@@ -114,6 +115,6 @@ generate_data \
     --duration $animation_duration \
     --animation_dt $animation_dt \
     --sims_to_animate $sims_to_animate \
->> logs/${runname}.o 
+>> $logfile 
 
 echo "Done!"

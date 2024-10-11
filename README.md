@@ -1,6 +1,6 @@
 # dynamical-landscape-inference
 
-This repository demonstrates the application of the PLNN architecture described in [Dynamical systems theory informed learning of cellular differentiation landscapes](https://www.biorxiv.org/content/10.1101/2024.09.21.614191v1) and implemented in a separate Github repository: [https://github.com/AddisonHowe/plnn](https://github.com/AddisonHowe/plnn).
+This repository demonstrates the application of the PLNN architecture described in "[Dynamical systems theory informed learning of cellular differentiation landscapes](https://www.biorxiv.org/content/10.1101/2024.09.21.614191v1)" and implemented in a separate Github repository: [https://github.com/AddisonHowe/plnn](https://github.com/AddisonHowe/plnn).
 
 
 ## Setup
@@ -23,6 +23,10 @@ Then, clone the PLNN project at [https://github.com/AddisonHowe/plnn](https://gi
 ```bash
 git clone https://github.com/AddisonHowe/plnn.git
 python -m pip install <path/to/plnn/>
+```
+or simply (warning, this is currently very slow) <!-- TODO -->
+```bash
+pip install git+https://github.com/AddisonHowe/plnn.git@dc8fb9704a65b1c84c2aa0ea715ed13d9e523956
 ```
 
 
