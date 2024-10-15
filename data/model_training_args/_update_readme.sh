@@ -29,5 +29,5 @@ rm _tmp.txt
 replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/algbindec)"
 echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
 replacement=$(cat _tmp.txt)
-sed -i '/<!-- REPLACEMENT START KEY \[ALGBINDEC\] -->/,/<!-- REPLACEMENT END KEY \[ALGBINDEC\] -->/c\<!-- REPLACEMENT START KEY \[ALGBINDEC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[MISC\] -->' $file
+sed -i '/<!-- REPLACEMENT START KEY \[ALGBINDEC\] -->/,/<!-- REPLACEMENT END KEY \[ALGBINDEC\] -->/c\<!-- REPLACEMENT START KEY \[ALGBINDEC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[ALGBINDEC\] -->' $file
 rm _tmp.txt

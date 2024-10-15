@@ -65,6 +65,8 @@ foo () {
         traindir=dict["training_data"];
         validdir=dict["validation_data"];
         loss=dict["loss"];
+        if (loss == "mmd") 
+            loss_args="<br>("dict["kernel"]", "dict["bw_range"]")"
         solver=dict["solver"];
         lr_schedule=dict["lr_schedule"];
         if (lr_schedule == "exponential_decay") 
@@ -77,7 +79,7 @@ foo () {
         if (optimizer == "rms")
             optim_args="<br>m="dict["momentum"]"<br>decay="dict["weight_decay"]"<br>clip="dict["clip"]
         # Build columns
-        print "| " "["name"]("fpath")" " | " "[training data]("traindir")<br>[validation data]("validdir")" " | " num_epochs " | " patience " | " batch_size " | " phi_layers " | " ncells " | " sigma" "sigma_args " | " loss " | " solver " | " dt " | " dt_schedule" "dt_schedule_args " | " lr_schedule" "lr_args" | " optimizer" "optim_args " |\\n"
+        print "| " "["name"]("fpath")" " | " "[training data]("traindir")<br>[validation data]("validdir")" " | " num_epochs " | " patience " | " batch_size " | " phi_layers " | " ncells " | " sigma" "sigma_args " | " loss" "loss_args " | " solver " | " dt " | " dt_schedule" "dt_schedule_args " | " lr_schedule" "lr_args" | " optimizer" "optim_args " |\\n"
     }
     ' < "$fpath"
 }
