@@ -2,16 +2,28 @@
 
 file="data/model_training_args/README.md"
 
-replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/synbindec)"
+replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/plnn_synbindec)"
 echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
 replacement=$(cat _tmp.txt)
-sed -i '/<!-- REPLACEMENT START KEY \[SYNBINDEC\] -->/,/<!-- REPLACEMENT END KEY \[SYNBINDEC\] -->/c\<!-- REPLACEMENT START KEY \[SYNBINDEC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[SYNBINDEC\] -->' $file
+sed -i '/<!-- REPLACEMENT START KEY \[PLNN_SYNBINDEC\] -->/,/<!-- REPLACEMENT END KEY \[PLNN_SYNBINDEC\] -->/c\<!-- REPLACEMENT START KEY \[PLNN_SYNBINDEC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[PLNN_SYNBINDEC\] -->' $file
 rm _tmp.txt
 
-replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/quadratic)"
+replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/plnn_quadratic)"
 echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
 replacement=$(cat _tmp.txt)
-sed -i '/<!-- REPLACEMENT START KEY \[QUADRATIC\] -->/,/<!-- REPLACEMENT END KEY \[QUADRATIC\] -->/c\<!-- REPLACEMENT START KEY \[QUADRATIC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[QUADRATIC\] -->' $file
+sed -i '/<!-- REPLACEMENT START KEY \[PLNN_QUADRATIC\] -->/,/<!-- REPLACEMENT END KEY \[PLNN_QUADRATIC\] -->/c\<!-- REPLACEMENT START KEY \[PLNN_QUADRATIC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[PLNN_QUADRATIC\] -->' $file
+rm _tmp.txt
+
+replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/alg_synbindec)"
+echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
+replacement=$(cat _tmp.txt)
+sed -i '/<!-- REPLACEMENT START KEY \[ALG_SYNBINDEC\] -->/,/<!-- REPLACEMENT END KEY \[ALG_SYNBINDEC\] -->/c\<!-- REPLACEMENT START KEY \[ALG_SYNBINDEC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[ALG_SYNBINDEC\] -->' $file
+rm _tmp.txt
+
+replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/alg_quadratic)"
+echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
+replacement=$(cat _tmp.txt)
+sed -i '/<!-- REPLACEMENT START KEY \[ALG_QUADRATIC\] -->/,/<!-- REPLACEMENT END KEY \[ALG_QUADRATIC\] -->/c\<!-- REPLACEMENT START KEY \[ALG_QUADRATIC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[ALG_QUADRATIC\] -->' $file
 rm _tmp.txt
 
 replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/facs)"
@@ -24,10 +36,4 @@ replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/misc)"
 echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
 replacement=$(cat _tmp.txt)
 sed -i '/<!-- REPLACEMENT START KEY \[MISC\] -->/,/<!-- REPLACEMENT END KEY \[MISC\] -->/c\<!-- REPLACEMENT START KEY \[MISC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[MISC\] -->' $file
-rm _tmp.txt
-
-replacement="$(sh scripting/echo_runarg_table.sh data/model_training_args/algbindec)"
-echo $replacement | sed 's|data/model_training_args|../model_training_args|g;s|data/training_data|../training_data|g' > _tmp.txt
-replacement=$(cat _tmp.txt)
-sed -i '/<!-- REPLACEMENT START KEY \[ALGBINDEC\] -->/,/<!-- REPLACEMENT END KEY \[ALGBINDEC\] -->/c\<!-- REPLACEMENT START KEY \[ALGBINDEC\] -->\n'"$replacement"'\n<!-- REPLACEMENT END KEY \[ALGBINDEC\] -->' $file
 rm _tmp.txt

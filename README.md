@@ -11,12 +11,12 @@ conda activate env
 pip install diffrax==0.4.1
 ```
 
-For GPU support, specifying cuda toolkit 11.2:
+For GPU support:
 ```bash
-conda create -p ./env python=3.9 pytorch=1.11[build=cuda112*] numpy=1.25 matplotlib=3.7 pytest=7.4 tqdm ipykernel ipywidgets
+conda create -p ./env python=3.9 numpy=1.25 matplotlib=3.7 pytest=7.4 cuda-compat=12.4 tqdm ipykernel ipywidgets --yes
 conda activate env
 pip install --upgrade pip
-pip install optax==0.1.7 diffrax==0.5.0 equinox==0.11.5 jax==0.4.24 jaxlib==0.4.24+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install jax[cuda12] optax==0.1.7 diffrax==0.6.0 equinox==0.11.5 torch==2.0.1 torchvision torchaudio
 ```
 
 Then, clone the PLNN project at [https://github.com/AddisonHowe/plnn](https://github.com/AddisonHowe/plnn) and install it:
