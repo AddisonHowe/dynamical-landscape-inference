@@ -9,6 +9,8 @@ Copied from `data/training_data/facs_v3/pca/dec1_fitonsubset/transition1_subset_
 Includes training, validation, and testing split of experimental conditions. \
 Cells are labeled, and those involved in the first binary decision are isolated. \
 PCA is performed on the combined subset of cells collected at days 2 and 3.5. \
+Note that PCA, as applied via sklearn, performs mean-centering but not variance normalization.
+Therefore, the cell subset is mean-centered, and any subsequent transformation using the PCA object will first translate the cells according to this mean.
 All cells, spanning all timepoints, are projected onto the plane spanned by the first two PCs.
 
 
@@ -21,4 +23,5 @@ Copied from `data/training_data/facs_v4/pca/dec2_fitonsubset/transition2_subset_
 Includes training, validation, and testing split of experimental conditions. \
 Cells are labeled, and those involved in the second binary decision are isolated. \
 PCA is performed on the combined subset of cells collected at days 3 and 5. \
+Therefore, the cell subset is mean-centered, and any subsequent transformation using the PCA object will first translate the cells according to this mean.
 All cells, spanning all timepoints, are projected onto the plane spanned by the first two PCs.
