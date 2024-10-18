@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+#=============================================================================
+#
+# FILE: _run_all_nb_eval_model_script.sh
+#
+# USAGE: _run_all_nb_eval_model_script.sh [notebook] [start=0] [stop=1000000]
+#
+# DESCRIPTION: Run evaluation script on each model in a specified directory.
+#
+# EXAMPLE: sh _run_all_nb_eval_model_script.sh nb_eval_model_plnn_synbindec
+#=============================================================================
 
 # Function to check if a value is an integer
 is_integer() {
@@ -11,7 +21,7 @@ if [ $# -ne 1 ] && [ $# -ne 3 ]; then
     exit 1
 fi
 
-nb_basename=$1  # example: nb_eval_model_algbindec
+nb_basename=$1  # example: nb_eval_model_plnn_synbindec
 
 # Check if second and third arguments are integers if provided
 if [ $# -eq 3 ]; then
@@ -30,9 +40,11 @@ else
     logstatusfile=scripting/logs/log_${nb_basename}.status
 fi
 
-rundir=notebooks
-argfile=scripting/arglist_${nb_basename}.tsv
+rundir=notebooks/model_evaluation
+argfile=scripting/eval/arglist_${nb_basename}.tsv
 
+logdir=scripting/logs
+mkdir -p $logdir
 echo STDOUT LOG: > $logoutfile
 echo "OUTPUT STATUS LOG (directory exitcode):" > $logstatusfile
 

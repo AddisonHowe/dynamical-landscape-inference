@@ -181,3 +181,11 @@
 
 - Data source: `data_phiq_2a`
 
+
+## `DeepPhiPLNN` FACS landscapes
+
+- Data source: `facs_dec1_v1`
+    - [run_facs_dec1_v1_argset1](../model_training_args/facs/run_facs_dec1_v1_argset1.tsv)
+        - [model_facs_dec1_v1_argset1_20241017_113153](./facs/model_facs_dec1_v1_argset1_20241017_113153)
+    - [run_facs_dec2_v1_argset1](../model_training_args/facs/run_facs_dec2_v1_argset1.tsv)
+        - [model_facs_dec2_v1_argset1_20241017_113100](./facs/model_facs_dec2_v1_argset1_20241017_113100)

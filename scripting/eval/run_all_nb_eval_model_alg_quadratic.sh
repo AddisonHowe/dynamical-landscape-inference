@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sh scripting/_run_all_nb_eval_model_script.sh nb_eval_model_alg_quadratic
+sh scripting/eval/_run_all_nb_eval_model_script.sh nb_eval_model_alg_quadratic
