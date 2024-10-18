@@ -197,7 +197,26 @@ The training process generates an output model directory containing log files an
 
 
 ### Model evaluation
-After the training process, we evaluate the resulting model on data not seen during the training process.
+After the training process, we evaluate the resulting model using the notebooks contained in `notebooks/model_evaluation/`.
+The bash scripts located in `scripting/model_evaluation/` automate this process, and can be run as follows:
+
+```bash
+# Evaluate models listed in...
+
+# scripting/model_evaluation/arglist_nb_eval_model_plnn_synbindec.tsv
+sh scripting/model_evaluation/run_all_nb_eval_model_plnn_synbindec.sh
+
+# scripting/model_evaluation/arglist_nb_eval_model_plnn_quadratic.tsv
+sh scripting/model_evaluation/run_all_nb_eval_model_plnn_quadratic.sh
+
+# scripting/model_evaluation/arglist_nb_eval_model_alg_synbindec.tsv
+sh scripting/model_evaluation/run_all_nb_eval_model_alg_synbindec.sh
+
+# scripting/model_evaluation/arglist_nb_eval_model_alg_quadratic.tsv
+sh scripting/model_evaluation/run_all_nb_eval_model_alg_quadratic.sh
+```
+
+These commands will run the model evaluation notebook on all models listed in the corresponding arglist file.
 
 
 # Acknowledgments

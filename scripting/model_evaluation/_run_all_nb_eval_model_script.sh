@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #=============================================================================
 #
 # FILE: _run_all_nb_eval_model_script.sh
@@ -41,7 +41,7 @@ else
 fi
 
 rundir=notebooks/model_evaluation
-argfile=scripting/eval/arglist_${nb_basename}.tsv
+argfile=scripting/model_evaluation/arglist_${nb_basename}.tsv
 
 logdir=scripting/logs
 mkdir -p $logdir
