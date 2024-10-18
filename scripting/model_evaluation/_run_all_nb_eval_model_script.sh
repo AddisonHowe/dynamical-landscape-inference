@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #=============================================================================
 #
 # FILE: _run_all_nb_eval_model_script.sh
