@@ -19,14 +19,9 @@ pip install --upgrade pip
 pip install jax[cuda12] optax==0.1.7 diffrax==0.6.0 equinox==0.11.5 torch==2.0.1 torchvision torchaudio
 ```
 
-Then, clone the PLNN project at [https://github.com/AddisonHowe/plnn](https://github.com/AddisonHowe/plnn) and install it:
+Then, install the PLNN project at [https://github.com/AddisonHowe/plnn](https://github.com/AddisonHowe/plnn):
 ```bash
-git clone https://github.com/AddisonHowe/plnn.git
-python -m pip install <path/to/plnn/>
-```
-or simply (warning, this is currently very slow) <!-- TODO -->
-```bash
-pip install git+https://github.com/AddisonHowe/plnn.git@dc8fb9704a65b1c84c2aa0ea715ed13d9e523956
+pip install git+https://github.com/AddisonHowe/plnn.git@v0.1.0-alpha
 ```
 
 
