@@ -22,6 +22,7 @@ template_linkdir=$PROJ_DIR_TILDE/scripting/autofig/plnn_synbindec/template1_imag
 
 # This is where all generated ai files will be stored, one for every run below.
 aioutdir=${PROJ_DIR}/figures/autofig/out/plnn_synbindec
+mkdir -p $aioutdir
 
 # Script to modify the links in an .ai file, with placeholder in/out files,
 # and temporary generated script, with placeholder in/out files replaced
@@ -29,7 +30,7 @@ scriptfpath=$PROJ_DIR/scripting/autofig/modify_links.jsx
 tmp_script_fpath=$PROJ_DIR/scripting/autofig/plnn_synbindec/_tmp_modify_links.jsx
 
 # Directories containing images corresponding to trained models.
-RUNDIRBASE=out/eval_models_plnn_synbindec
+RUNDIRBASE=data/model_evaluation/eval_models_plnn_synbindec
 rundirs=$(ls $RUNDIRBASE)
 # rundirs=$(ls $RUNDIRBASE | grep subsetkey)  # To only apply on subset
 

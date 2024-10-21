@@ -218,6 +218,50 @@ sh scripting/model_evaluation/run_all_nb_eval_model_alg_quadratic.sh
 
 These commands will run the model evaluation notebook on all models listed in the corresponding arglist file, and generate output in the directory `data/model_evaluation/`.
 
+### Automated figure generation
+The images generated in the evaluation process can be arranged into a set of pdfs in an automated procedure, using the scripts available in the `scripting/autofig/` directory.
+First, create or modify an environment file `.env`, and set the following environment variables:
+```bash
+# Filename: dynamical-landscape-inference/.env
+ILLUSTRATOR_PATH=<path/to/adobe/illustrator.app>
+PROJ_DIR_TILDE=<~/path/to/dynamical-landscape-inference/>  # using tilde for home directory
+```
+Then, run the figure generation scripts:
+```bash
+sh scripting/autofig/alg_quadratic/generate_ai_files_from_template.sh
+sh scripting/autofig/alg_synbindec/generate_ai_files_from_template.sh
+sh scripting/autofig/facs/generate_ai_files_from_template.sh
+sh scripting/autofig/plnn_quadratic/generate_ai_files_from_template.sh
+sh scripting/autofig/plnn_synbindec/generate_ai_files_from_template.sh
+```
+
+# Figure generation
+The figures in the manuscript and supplement can be reproduced using the scripts available in the `figures/` directory.
+In `figures/manuscript/` there are a number of python scripts that generate the individual plots appearing in the main figures of the manuscript.
+The corresponding shell scripts run these python files with any hyperparameters specified.
+Note that in order to generate the plots for Figures 6 and 7, one must set the environment variable `MESC_PROJ_PATH` in the file `.env` to point to the `mescs-invitro-facs` project directory (available at [https://github.com/AddisonHowe/mescs-invitro-facs](https://github.com/AddisonHowe/mescs-invitro-facs)) containing the FACS data used in those plots.
+
+```bash
+# Generate all plots appearing in primary figures
+sh figures/make_all_manuscript_plots.sh
+
+# The command above runs the following scripts:
+# sh figures/manuscript/run_make_fig1_landscape_models.sh
+# sh figures/manuscript/run_make_fig3_synthetic_training.sh
+# sh figures/manuscript/run_make_fig4_sampling_rate_sensitivity.sh
+# sh figures/manuscript/run_make_fig5_dimred_schematic.sh
+# export MESC_PROJ_PATH=<path/to/mesc-invitro-facs>
+# sh figures/manuscript/run_make_fig6_facs_training.sh
+# sh figures/manuscript/run_make_fig7_facs_evaluation.sh
+```
+A similar set of commands are available to generate plots appearing in the supplementary information.
+```bash
+# Generate all plots appearing in supplemental figures
+sh figures/make_all_supplement_plots.sh
+
+# The command above runs the following scripts:
+# sh run_make_figure_s1
+```
 
 # Acknowledgments
 This work was inspired by the work of Sáez et al. in [Statistically derived geometrical landscapes capture principles of decision-making dynamics during cell fate transitions](https://pubmed.ncbi.nlm.nih.gov/34536382/).
