@@ -216,7 +216,7 @@ sh scripting/model_evaluation/run_all_nb_eval_model_alg_synbindec.sh
 sh scripting/model_evaluation/run_all_nb_eval_model_alg_quadratic.sh
 ```
 
-These commands will run the model evaluation notebook on all models listed in the corresponding arglist file.
+These commands will run the model evaluation notebook on all models listed in the corresponding arglist file, and generate output in the directory `data/model_evaluation/`.
 
 
 # Acknowledgments
