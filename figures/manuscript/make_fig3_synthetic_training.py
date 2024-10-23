@@ -8,7 +8,7 @@ import numpy as np
 import jax
 jax.config.update("jax_enable_x64", True)
 import matplotlib.pyplot as plt
-plt.style.use('figures/manuscript/styles/fig_standard.mplstyle')
+plt.style.use('figures/manuscript/styles/fig_3.mplstyle')
 import matplotlib.patches as patches
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
@@ -28,7 +28,7 @@ MODELDIR = "data/trained_models/plnn_synbindec/model_phi1_1a_v_mmd1_20240704_134
 SIGMA_TRUE = 0.1
 SEED = 123
 
-LEGEND_FONTSIZE = 6
+LEGEND_FONTSIZE = 8
 INSET_SCALE = "30%"
 
 
@@ -83,14 +83,16 @@ print("inferred noise:\n", noise_parameter)
 
 TILT_TO_PLOT = [0., 0.5]
 
-#################################  Heatmap of true landscape
+#################################  Heatmap of ground truth landscape
 FIGNAME = "phi1_heatmap"
-FIGSIZE = (5.5*sf, 5.5*sf)
+FIGSIZE = (5.75*sf, 5.25*sf)
 
 r = 2.5       # box radius
 res = 50   # resolution
 lognormalize = True
 clip = None
+
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 
 fps, fp_types, fp_colors = get_phi1_fixed_points([TILT_TO_PLOT])
 
@@ -108,6 +110,8 @@ ax = plot_landscape(
     equal_axes=True,
     saveas=None,
     figsize=FIGSIZE,
+    tight_layout=False,
+    ax=ax,
     show=True,
 )
 for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
@@ -121,8 +125,8 @@ for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         markeredgewidth=0.2 if marker == 'o' else 0.5,
     )
 
-# ax.set_xticks([])
-# ax.set_yticks([])
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([-2, 0, 2])
 
 # Plot signal effect inset
 subax = inset_axes(ax,
@@ -194,12 +198,14 @@ plt.savefig(f"{OUTDIR}/{FIGNAME}", bbox_inches='tight')
 #################################  Heatmap of inferred landscape
 
 FIGNAME = "phi1_inferred"
-FIGSIZE = (5.5*sf, 5.5*sf)
+FIGSIZE = (5.75*sf, 5.25*sf)
 
 r = 2.5     # box radius
 res = 100   # resolution
 lognormalize = True
 clip = None
+
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 
 ax = plot_phi(
     model, tilt=TILT_TO_PLOT, 
@@ -217,7 +223,15 @@ ax = plot_phi(
     saveas=None,
     figsize=FIGSIZE,
     show=True,
+    tight_layout=False,
+    ax=ax,
 )
+
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([-2, 0, 2])
+
+cax = fig.get_axes()[1]
+cax.set_yticks([0, 1, 2, 3])
 
 mins = estimate_minima(
     model, TILT_TO_PLOT, 
@@ -288,6 +302,8 @@ for curve, color in zip(bifcurves_inferred, bifcolors_inferred):
 
 ax.set_xlim(-2, 2)
 ax.set_ylim(-1, 3)
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([0, 2, 4])
 ax.set_xlabel("$\\tau_1$")
 ax.set_ylabel("$\\tau_2$")
 
@@ -323,7 +339,7 @@ for curve, color in zip(bifcurves_inferred, bifcolors_inferred):
     inf_line, = ax.plot(curve[:,0], curve[:,1], '-', color=color, alpha=0.9)
 
 ax.legend(
-    [true_line, inf_line], ['ground truth', 'inferred'], 
+    [true_line, inf_line], ['Ground truth', 'Inferred'], 
     # bbox_to_anchor=(1.05, 1), loc='upper left',
     fontsize=LEGEND_FONTSIZE
 )
@@ -354,7 +370,7 @@ for curve, color in zip(bifcurves_inferred, bifcolors_inferred):
                         color=color, alpha=0.9)
 
 ax.legend(
-    [true_line, inf_line], ['ground truth', 'inferred'], 
+    [true_line, inf_line], ['Ground truth', 'Inferred'], 
     # bbox_to_anchor=(1.05, 1), loc='upper left',
     fontsize=LEGEND_FONTSIZE
 )
@@ -372,7 +388,7 @@ plt.savefig(f"{OUTDIR}/{FIGNAME}", bbox_inches='tight', transparent=True)
 
 ##################################  Noise History
 FIGNAME = "noise_history"
-FIGSIZE = (5.5*sf, 3.5*sf)
+FIGSIZE = (5.75*sf, 4.5*sf)
 
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 
@@ -382,7 +398,7 @@ sigma_hist = run_dict['sigma_hist']
 plot_sigma_history(
     sigma_hist, log=False, sigma_true=SIGMA_TRUE,
     color='k', marker=None, linestyle='-',
-    title="", sigma_true_legend_label=f'ground truth $\\sigma^*={SIGMA_TRUE:.3g}$',
+    title="", sigma_true_legend_label=f'Ground truth $\\sigma^*={SIGMA_TRUE:.3g}$',
     figsize=FIGSIZE,
     ax=ax,
 )
@@ -390,9 +406,10 @@ ylims = ax.get_ylim()
 ax.vlines(
     idx, ylims[0], sigma_hist[idx],
     linestyles='--', colors='grey', linewidth=1, zorder=1, 
-    label=f"inferred $\sigma={model.get_sigma():.2g}$"
+    label=f"Inferred $\sigma={model.get_sigma():.2g}$"
 )
-ax.set_ylabel("noise $\sigma$")
+ax.set_xlabel("Epoch")
+ax.set_ylabel("Noise $\sigma$")
 ax.set_ylim(*ylims)
 ax.legend(fontsize=LEGEND_FONTSIZE)
 plt.savefig(f"{OUTDIR}/{FIGNAME}", transparent=True)
@@ -401,7 +418,7 @@ plt.close()
 
 ##################################  Loss History
 FIGNAME = "loss_history"
-FIGSIZE = (5.5*sf, 3.5*sf)
+FIGSIZE = (5.75*sf, 4.5*sf)
 
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 plot_loss_history(
@@ -415,8 +432,8 @@ plot_loss_history(
     alpha_train=0.7, alpha_valid=0.6,
     ax=ax
 )
-ax.set_xlabel("epoch")
-ax.set_ylabel("error")
+ax.set_xlabel("Epoch")
+ax.set_ylabel("Error")
 ax.set_title("")
 
 ax.axvline(
@@ -508,7 +525,7 @@ rectangle = patches.Rectangle(
 p2 = ax.add_patch(rectangle)
 
 ax.legend(
-    [p1, p2], ['initial', 'final'], 
+    [p1, p2], ['Initial', 'Final'], 
     # bbox_to_anchor=(1.05, 1), loc='upper left',
     fontsize=LEGEND_FONTSIZE,
 )
@@ -518,6 +535,9 @@ ax.set_ylabel("$s_2$")
 
 ax.set_xlim([-2, 2])
 ax.set_ylim([-1, 5])
+
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([0, 2, 4])
 
 ax.set_title("Signal prior")
 

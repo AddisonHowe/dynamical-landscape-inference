@@ -10,7 +10,7 @@ jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp
 import jax.random as jrandom
 import matplotlib.pyplot as plt
-plt.style.use('figures/manuscript/styles/fig_standard.mplstyle')
+plt.style.use('figures/manuscript/styles/fig_1.mplstyle')
 
 from plnn.pl import plot_landscape
 from plnn.helpers import get_phi1_fixed_points, get_phi2_fixed_points
@@ -22,6 +22,8 @@ OUTDIR = "figures/manuscript/out/fig1_landscape_models"
 SAVEPLOTS = True
 
 SEED = 1234125123
+
+TEX_CONTEXT = 'figures/manuscript/styles/fig_1_tex.mplstyle'
 
 
 os.makedirs(OUTDIR, exist_ok=True)
@@ -40,7 +42,7 @@ FP_MARKERS = {
     'maximum': '^',
 }
 
-ANNOTATION_FONTSIZE = 8
+ANNOTATION_FONTSIZE = 10
 PARAM_MARKERSIZE = 4
 
 ##############################################################################
@@ -50,29 +52,32 @@ PARAM_MARKERSIZE = 4
 FIGNAME1 = "phi1_heatmap_untilted"
 FIGSIZE1 = (5*sf, 5*sf)
 FIGNAME2 = "phi1_landscape_untilted"
-FIGSIZE2 = (6*sf, 6*sf)
+FIGSIZE2 = (6*sf, 5.8*sf)
 
 r = 3       # box radius
 res = 50   # resolution
 lognormalize = True
 clip = None
 
-fps, fp_types, fp_colors = get_phi1_fixed_points([[0, 0]])
+plot_tilt = [0, 0.5]
 
-ax = plot_landscape(
-    func_phi1_star, r=r, res=res, params=[0, 0], 
-    lognormalize=lognormalize,
-    clip=clip,
-    title=f"$\\boldsymbol{{\\tau}}=\langle 0, 0\\rangle$",
-    ncontours=10,
-    contour_linewidth=0.5,
-    contour_linealpha=0.5,
-    include_cbar=True,
-    cbar_title="$\ln\phi$" if lognormalize else "$\phi$",
-    equal_axes=True,
-    figsize=FIGSIZE1,
-    show=True
-);
+fps, fp_types, fp_colors = get_phi1_fixed_points([plot_tilt])
+
+with plt.style.context(TEX_CONTEXT):
+    ax = plot_landscape(
+        func_phi1_star, r=r, res=res, params=plot_tilt, 
+        lognormalize=lognormalize,
+        clip=clip,
+        title=f"$\\boldsymbol{{\\tau}}=({plot_tilt[0]}, {plot_tilt[1]})$",
+        ncontours=10,
+        contour_linewidth=0.5,
+        contour_linealpha=0.5,
+        include_cbar=True,
+        cbar_title="$\ln\phi$" if lognormalize else "$\phi$",
+        equal_axes=True,
+        figsize=FIGSIZE1,
+        show=True
+    )
 for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
     marker = FP_MARKERS[fp_type]
     ax.plot(
@@ -89,7 +94,7 @@ if SAVEPLOTS:
 plt.close()
 
 ax = plot_landscape(
-    func_phi1_star, r=r, res=res, params=[0, 0], 
+    func_phi1_star, r=r, res=res, params=plot_tilt, 
     plot3d=True,
     lognormalize=False,
     normalize=True,
@@ -155,19 +160,20 @@ clip = None
 
 fps, fp_types, fp_colors = get_phi2_fixed_points([[0, 0]])
 
-ax = plot_landscape(
-    func_phi2_star, r=r, res=res, params=[0, 0], 
-    lognormalize=lognormalize,
-    clip=clip,
-    title=f"$\\boldsymbol{{\\tau}}=\langle 0, 0\\rangle$",
-    ncontours=10,
-    contour_linewidth=0.5,
-    include_cbar=True,
-    cbar_title="$\ln\phi$" if lognormalize else "$\phi$",
-    equal_axes=True,
-    figsize=FIGSIZE1,
-    show=True,
-);
+with plt.style.context(TEX_CONTEXT):
+    ax = plot_landscape(
+        func_phi2_star, r=r, res=res, params=[0, 0], 
+        lognormalize=lognormalize,
+        clip=clip,
+        title=f"$\\boldsymbol{{\\tau}}=(0, 0)$",
+        ncontours=10,
+        contour_linewidth=0.5,
+        include_cbar=True,
+        cbar_title="$\ln\phi$" if lognormalize else "$\phi$",
+        equal_axes=True,
+        figsize=FIGSIZE1,
+        show=True,
+    )
 for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
     marker = FP_MARKERS[fp_type]
     ax.plot(
@@ -235,28 +241,27 @@ r = 3       # box radius
 res = 50   # resolution
 lognormalize = True
 clip = None
-
 for i, (p, label_number) in enumerate(PARAMS_PHI1):
-    title = f"$\\boldsymbol{{\\tau}}=" + \
-                f"\langle{p[0]:.2g},{p[1]:.2g}\\rangle$"
-    ax = plot_landscape(
-        func_phi1_star, r=r, res=res, params=p, 
-        lognormalize=lognormalize,
-        clip=clip,
-        title=title,
-        cbar_title="$\ln\phi$",
-        include_cbar=False,
-        ncontours=10,
-        contour_linewidth=0.5,
-        contour_linealpha=0.5,
-        xlabel=None,
-        ylabel=None,
-        xticks=False,
-        yticks=False,
-        equal_axes=True,
-        figsize=FIGSIZE,
-        show=True,
-    );
+    with plt.style.context(TEX_CONTEXT):
+        title = f"$\\boldsymbol{{\\tau}}=" + f"({p[0]:.2g},{p[1]:.2g})$"
+        ax = plot_landscape(
+            func_phi1_star, r=r, res=res, params=p, 
+            lognormalize=lognormalize,
+            clip=clip,
+            title=title,
+            cbar_title="$\ln\phi$",
+            include_cbar=False,
+            ncontours=10,
+            contour_linewidth=0.5,
+            contour_linealpha=0.5,
+            xlabel=None,
+            ylabel=None,
+            xticks=False,
+            yticks=False,
+            equal_axes=True,
+            figsize=FIGSIZE,
+            show=True,
+        )
     ax.text(
         0.99, 0, str(label_number), 
         color='k',
@@ -286,7 +291,7 @@ for i, (p, label_number) in enumerate(PARAMS_PHI1):
 ##############################################################################
 ##  Tilt time course for binary choice
 FIGNAME = "phi1_tau_timecourse"  # appended with index i
-FIGSIZE = (6*sf, 4*sf)
+FIGSIZE = (6*sf, 4.1*sf)
 
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
 
@@ -356,7 +361,7 @@ plt.close()
 ##############################################################################
 ##  Landscape heatmaps along tau timecourse
 FIGNAME = "phi1_timecourse_heatmaps"  # appended with index i
-FIGSIZE = (2.5*sf, 2.5*sf)
+FIGSIZE = (2.75*sf, 2.75*sf)
 
 res = 50
 r = 2.5
@@ -429,25 +434,25 @@ lognormalize = True
 clip = None
 
 for i, p in enumerate(PARAMS_PHI2):
-    title = f"$\\boldsymbol{{\\tau}}=" + \
-                f"\langle{p[0]:.2g},{p[1]:.2g}\\rangle$"
-    ax = plot_landscape(
-        func_phi2_star, r=r, res=res, params=p, 
-        lognormalize=lognormalize,
-        clip=clip,
-        title=title,
-        include_cbar=False,
-        cbar_title="$\ln\phi$",
-        ncontours=10,
-        contour_linewidth=0.5,
-        xlabel=None,
-        ylabel=None,
-        xticks=False,
-        yticks=False,
-        equal_axes=True,
-        figsize=FIGSIZE,
-        show=True,
-    );
+    with plt.style.context(TEX_CONTEXT):
+        title = f"$\\boldsymbol{{\\tau}}=" + f"({p[0]:.2g},{p[1]:.2g})$"
+        ax = plot_landscape(
+            func_phi2_star, r=r, res=res, params=p, 
+            lognormalize=lognormalize,
+            clip=clip,
+            title=title,
+            include_cbar=False,
+            cbar_title="$\ln\phi$",
+            ncontours=10,
+            contour_linewidth=0.5,
+            xlabel=None,
+            ylabel=None,
+            xticks=False,
+            yticks=False,
+            equal_axes=True,
+            figsize=FIGSIZE,
+            show=True,
+        )
     fps, fp_types, fp_colors = get_phi2_fixed_points([p])
     for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         marker = FP_MARKERS[fp_type]
@@ -469,7 +474,8 @@ for i, p in enumerate(PARAMS_PHI2):
 
 from cont.binary_choice import plot_binary_choice_bifurcation_diagram
 
-FIGSIZE = (5*sf, 5*sf)
+# FIGSIZE = (5*sf, 5*sf)
+FIGSIZE = (6*sf, 6*sf)
 
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
 
@@ -490,6 +496,8 @@ ax.plot(
 for p, label_number in PARAMS_PHI1:
     ax.plot(*p, '.k', alpha=1.0, markersize=PARAM_MARKERSIZE)
     ax.text(*p, label_number, fontsize=ANNOTATION_FONTSIZE)
+
+ax.set_yticks([-1, 0, 1, 2, 3])
 
 if SAVEPLOTS:
     plt.savefig(f"{OUTDIR}/phi1_bifdiagram", bbox_inches='tight')

@@ -142,10 +142,12 @@ ax.set_xlabel("")
 ax.set_ylabel("")
 ax.set_title("")
 
-ax.get_yaxis().get_major_formatter().labelOnlyBase = False
-ax.set_yticks([0.2, 0.4, 0.6, 0.8], minor=True)
-ax.get_yaxis().set_major_formatter(ticker.ScalarFormatter())
-ax.get_yaxis().set_minor_formatter(ticker.ScalarFormatter())
+ax.set_yticks([0.2, 0.4, 0.8], [0.2, 0.4, 0.8])
+# ax.get_yaxis().get_major_formatter().labelOnlyBase = False
+# ax.set_yticks([0.2, 0.4, 0.8], minor=True)
+ax.set_yticks([], minor=True)
+# ax.get_yaxis().set_major_formatter(ticker.ScalarFormatter())
+# ax.get_yaxis().set_minor_formatter(ticker.ScalarFormatter())
 
 plt.savefig(
     f"{OUTDIR}/{FIGNAME}", transparent=True

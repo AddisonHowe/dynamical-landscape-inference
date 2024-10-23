@@ -173,7 +173,7 @@ print("Each line is the mean loss of a condition, " \
       f"averaged over all {nresamps} resamplings.")
 print("Error bars show 2 standard deviations.")
 
-figsize = (7*sf, 4*sf)
+figsize = (12*sf, 4*sf)
 for dataset_key in KEY_LIST:
     for dt0 in DT0_LIST:
         dataset = DATASETS[dataset_key, dt0]
@@ -181,33 +181,45 @@ for dataset_key in KEY_LIST:
         times = dataset['times']
         nconds, ndata_per_cond, nresamps, nreps = losses.shape
 
-        fig, ax = plt.subplots(1, 1, figsize=figsize)
+        fig, ax = plt.subplots(1, 1, figsize=figsize, layout='constrained')
+        legend_handles = []
+        legend_labels = []
         for condidx in range(nconds):
             cond_name = CONDITION_NAMES[train_valid_test_conds[dataset_key][condidx]]
             avg_losses_over_reps = losses[condidx].mean(-1)
             mean_loss_over_samps = avg_losses_over_reps.mean(-1)
             std_loss_over_samps = avg_losses_over_reps.std(-1)
             
+            l, = ax.plot(
+                timepoints, mean_loss_over_samps,
+                linestyle=['-', '--'][condidx % 2],
+            )
+            legend_handles.append(l)
+            legend_labels.append(cond_name)
             ax.errorbar(
-                timepoints, 
-                mean_loss_over_samps, 
+                timepoints, mean_loss_over_samps, 
                 yerr=2*std_loss_over_samps,
-                capsize=4, linestyle="--", label=cond_name
+                capsize=4, 
+                linestyle="None", 
+                color=l.get_color()
             )
 
         ax.set_xlim(2, 5)
-        ax.legend(fontsize=6)
-        # ax.set_xlabel("timepoint")
-        # ax.set_ylabel("Loss")
-        # ax.set_title(f"{dataset_key} set (dt={dt0})")
+        ax.legend(
+            legend_handles, legend_labels, 
+            bbox_to_anchor=(1.05, 1), loc='upper left',
+        )
+        ax.set_xlabel("Time")
+        ax.set_ylabel("Error")
+        ax.set_title("Generalization error")
         
         figname = f"loss_comparison_{dataset_key}_dt_{dt0}"
-        plt.savefig(f"{OUTDIR}/{figname}.pdf")
+        plt.savefig(f"{OUTDIR}/{figname}.pdf", transparent=True)
         plt.close()
             
 
 
-figsize = (4, 2)
+figsize = (6, 2)
 for dataset_key in KEY_LIST:
     dataset = DATASETS[dataset_key, DT0_LIST[0]]
     losses = dataset['losses']
@@ -215,8 +227,10 @@ for dataset_key in KEY_LIST:
     nconds, ndata_per_cond, nresamps, nreps = losses.shape    
 
     for condidx in range(nconds):
-        fig, ax = plt.subplots(1, 1, figsize=figsize)
+        fig, ax = plt.subplots(1, 1, figsize=figsize, layout='constrained')
         cond_name = CONDITION_NAMES[train_valid_test_conds[dataset_key][condidx]]
+        legend_handles = []
+        legend_labels = []
         for dt0 in DT0_LIST:
             dataset = DATASETS[dataset_key, dt0]
             losses = dataset['losses']
@@ -225,20 +239,30 @@ for dataset_key in KEY_LIST:
             avg_losses_over_reps = losses[condidx].mean(-1)
             mean_loss_over_samps = avg_losses_over_reps.mean(-1)
             std_loss_over_samps = avg_losses_over_reps.std(-1)
-            
+
+            l, = ax.plot(
+                timepoints, mean_loss_over_samps,
+                linestyle='--',
+            )
+            legend_handles.append(l)
+            legend_labels.append(f"$dt={dt0:.3g}$")
             ax.errorbar(
-                timepoints, 
-                mean_loss_over_samps, 
+                timepoints, mean_loss_over_samps, 
                 yerr=2*std_loss_over_samps,
-                capsize=4, linestyle="--", label=f"$dt={dt0:.3g}$"
+                capsize=4, 
+                linestyle="None", 
+                color=l.get_color()
             )
 
         ax.set_xlim(2, 5)
-        ax.legend()
+        ax.legend(
+            legend_handles, legend_labels, 
+            bbox_to_anchor=(1.05, 1), loc='upper left',
+        )
         ax.set_xlabel("time")
         ax.set_ylabel("loss")
         ax.set_title(f"{cond_name} ({dataset_key})")
         
         figname = f"tp_comparison_{dataset_key}_{cond_name}"
-        plt.savefig(f"{OUTDIR}/{figname}.pdf")
+        plt.savefig(f"{OUTDIR}/{figname}.pdf", transparent=True)
         plt.close()

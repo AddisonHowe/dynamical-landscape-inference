@@ -21,3 +21,4 @@ eval "$(conda shell.bash hook)"
 conda activate env
 
 python figures/manuscript/make_fig6_facs_training.py
+python figures/manuscript/make_fig6_facs_training_loss.py

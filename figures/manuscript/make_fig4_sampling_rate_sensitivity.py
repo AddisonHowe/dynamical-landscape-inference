@@ -9,7 +9,7 @@ import numpy as np
 import jax
 jax.config.update("jax_enable_x64", True)
 import matplotlib.pyplot as plt
-plt.style.use('figures/manuscript/styles/fig_standard.mplstyle')
+plt.style.use('figures/manuscript/styles/fig_4.mplstyle')
 from sklearn.neighbors import NearestNeighbors
 
 from plnn.dataset import get_dataloaders
@@ -293,10 +293,10 @@ for dt_idx, dt in enumerate(dt_list):
 #     ha='left', va='top', 
 #     transform=ax.transAxes
 # )
-ax.set_xlim(ax.get_xlim()[0] - offset, ax.get_xlim()[1] + offset)
+ax.set_xlim(ax.get_xlim()[0] + 2 * offset, ax.get_xlim()[1] - 2 * offset)
 ax.set_xticks(range(1, len(dt_list) + 1), dt_list)
-ax.set_xlabel("sampling interval $\Delta T$")
-ax.set_ylabel("error")
+ax.set_xlabel("Sampling interval $\Delta T$")
+ax.set_ylabel("Error")
 ax.set_title("Generalization error")
 
 plt.savefig(f"{OUTDIR}/{FIGNAME}.pdf")
@@ -507,7 +507,7 @@ for dt_idx, dt in enumerate(dt_list):
 ##############################################################################
 ##  Training/testing dataset scatter plots
         
-FIGSIZE = (2.5*sf, 2.5*sf)
+FIGSIZE = (3.0*sf, 3.0*sf)
 NIDXS_HIGHLIGHT = 0
 highlight_colors = ['k', 'r']
 
@@ -595,10 +595,13 @@ for dt_idx, dt in enumerate(dt_list):
         # )
         # ax.set_xlabel("$x$")
         # ax.set_ylabel("$y$")
+        ax.set_xticks([-1, 0, 1])
+        ax.set_yticks([-1, 0, 1])
         ax.set_title("");
 
         train_ax_xlims = ax.get_xlim()
         train_ax_ylims = ax.get_ylim()
+        
 
         plt.savefig(f"{OUTDIR}/data_dt_{dt}_{dset_name}.pdf", bbox_inches='tight')
         plt.close()
@@ -608,7 +611,7 @@ for dt_idx, dt in enumerate(dt_list):
 ##############################################################################
 ##  Training/testing dataset density plots
         
-FIGSIZE = (2.5*sf, 2.5*sf)
+FIGSIZE = (3.0*sf, 3.0*sf)
 NIDXS_HIGHLIGHT = 0
 highlight_colors = ['k', 'r']
 
@@ -643,6 +646,8 @@ for dt_idx, dt in enumerate(dt_list):
 
         ax.set_xlim(*xrange)
         ax.set_ylim(*yrange)
+        ax.set_xticks([-1, 0, 1])
+        ax.set_yticks([-1, 0, 1])
 
         ndatapoints = dset.get_baselength()
         ndata_per_cond = 20 / dt

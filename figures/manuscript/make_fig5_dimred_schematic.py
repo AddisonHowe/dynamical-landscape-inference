@@ -295,7 +295,7 @@ xdata_all = np.array(XS_RESULTS).reshape([-1, 3])
 
 NCOMPS = 3
 
-gmm = GaussianMixture(n_components=NCOMPS)
+gmm = GaussianMixture(n_components=NCOMPS, random_state=rng.integers(2**32))
 gmm.fit(xdata_all)
 
 CONTOUR_ALPHA = 1.0
@@ -447,7 +447,7 @@ xdata_endpoints = xs_endpoints.reshape([-1, 3])
 
 mu_xdata_endpoints = xdata_endpoints.mean(axis=0)
 
-pca = PCA(n_components=3)
+pca = PCA(n_components=3, random_state=rng.integers(2**32))
 pca.fit(xdata_endpoints)
 
 xdata_endpoints_trans = pca.transform(xdata_endpoints)
@@ -538,7 +538,8 @@ ax.quiver(
     linestyle='--',
     label="PC2",
 )
-ax.legend()
+ax.legend(loc="upper right", bbox_to_anchor=(1, 1))
+
 
 # Plot arrows
 arrow1_start = [*mu_xdata_endpoints[0:2], plane_eq(*mu_xdata_endpoints[0:2])]
@@ -641,7 +642,7 @@ ax.plot_surface(
     color='y'
 )
 
-ax.legend()
+ax.legend(loc="upper right", bbox_to_anchor=(1.0, 1.0))
 
 ax.set_xlabel("$g_1$", labelpad=-15)
 ax.set_ylabel("$g_2$", labelpad=-15)
