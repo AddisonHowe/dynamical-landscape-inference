@@ -10,6 +10,11 @@
 # EXAMPLE: sh make_all_manuscript_plots.sh
 #=============================================================================
 
+echo Running run_make_fig0_visual_abstract.sh
+echo "####################################################"
+sh figures/manuscript/run_make_fig0_visual_abstract.sh
+echo "####################################################"
+
 echo Running run_make_fig1_landscape_models.sh
 echo "####################################################"
 sh figures/manuscript/run_make_fig1_landscape_models.sh

@@ -13,7 +13,7 @@ import matplotlib.patches as patches
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from plnn.io import load_model_from_directory, load_model_training_metadata
-from plnn.pl import plot_landscape, plot_phi, plot_sigma_history, plot_loss_history
+from plnn.pl import plot_landscape, plot_phi, plot_sigma_history, plot_validation_loss_history
 from plnn.pl import CHIR_COLOR, FGF_COLOR
 from plnn.vectorfields import estimate_minima
 from plnn.helpers import get_phi1_fixed_points
@@ -421,26 +421,35 @@ FIGNAME = "loss_history"
 FIGSIZE = (5.75*sf, 4.5*sf)
 
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
-plot_loss_history(
-    training_info['loss_hist_train'],
+# plot_loss_history(
+#     training_info['loss_hist_train'],
+#     training_info['loss_hist_valid'],
+#     log=True,
+#     color_train='k', color_valid='grey',
+#     marker_train=None, marker_valid=None,
+#     linestyle_train='-', linestyle_valid='-',
+#     linewidth_train=1, linewidth_valid=1,
+#     alpha_train=0.7, alpha_valid=0.6,
+#     ax=ax
+# )
+plot_validation_loss_history(
     training_info['loss_hist_valid'],
     log=True,
-    color_train='r', color_valid='b',
-    marker_train=None, marker_valid=None,
-    linestyle_train='-', linestyle_valid='-',
-    linewidth_train=1, linewidth_valid=1,
-    alpha_train=0.7, alpha_valid=0.6,
+    color='k',
+    marker=None,
+    linestyle='-',
+    linewidth_train=1,
     ax=ax
 )
 ax.set_xlabel("Epoch")
-ax.set_ylabel("Error")
+ax.set_ylabel("Error (validation)")
 ax.set_title("")
 
 ax.axvline(
     idx, 0, 1,
     linestyle='--', color='grey', linewidth=1, zorder=1,
 )
-ax.legend(fontsize=LEGEND_FONTSIZE)
+# ax.legend(fontsize=LEGEND_FONTSIZE)
 plt.savefig(f"{OUTDIR}/{FIGNAME}", transparent=True)
 plt.close()
 

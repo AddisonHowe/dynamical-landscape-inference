@@ -12,7 +12,7 @@ import jax.random as jrandom
 import matplotlib.pyplot as plt
 plt.style.use('figures/manuscript/styles/fig_1.mplstyle')
 
-from plnn.pl import plot_landscape
+from plnn.pl import plot_landscape, CHIR_COLOR, FGF_COLOR
 from plnn.helpers import get_phi1_fixed_points, get_phi2_fixed_points
 from plnn.data_generation.signals import get_sigmoid_function
 from plnn.models.algebraic_pl import AlgebraicPL
@@ -44,6 +44,9 @@ FP_MARKERS = {
 
 ANNOTATION_FONTSIZE = 10
 PARAM_MARKERSIZE = 4
+
+def get_marker_edge_width(marker):
+    return 0.2 if marker == 'o' else 0.5
 
 ##############################################################################
 ##############################################################################
@@ -86,7 +89,7 @@ for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         marker=marker,
         markersize=3,
         markeredgecolor='w',
-        markeredgewidth=0.2 if marker == 'o' else 0.5,
+        markeredgewidth=get_marker_edge_width(marker),
         
     )
 if SAVEPLOTS:
@@ -124,8 +127,9 @@ for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         color=fp_color, 
         marker=marker,
         markersize=3,
-        markeredgecolor='w',
+        markeredgecolor='w' if marker == 'o' else 'r',
         markeredgewidth=0.2 if marker == 'o' else 0.5,
+        zorder=10,
     )
 # ax.tick_params(axis='x', which='both', pad=-5)
 # ax.tick_params(axis='y', which='both', pad=-5)
@@ -182,7 +186,7 @@ for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         marker=marker,
         markersize=3,
         markeredgecolor='w',
-        markeredgewidth=0.2 if marker == 'o' else 0.5,
+        markeredgewidth=get_marker_edge_width(marker),
     )
 if SAVEPLOTS:
     plt.savefig(f"{OUTDIR}/{FIGNAME1}")
@@ -217,7 +221,7 @@ for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         marker=marker,
         markersize=3,
         markeredgecolor='w',
-        markeredgewidth=0.2 if marker == 'o' else 0.5,
+        markeredgewidth=get_marker_edge_width(marker),
     )
 if SAVEPLOTS:
     plt.savefig(f"{OUTDIR}/{FIGNAME2}")
@@ -279,7 +283,7 @@ for i, (p, label_number) in enumerate(PARAMS_PHI1):
             marker=marker,
             markersize=3,
             markeredgecolor='w',
-            markeredgewidth=0.2 if marker == 'o' else 0.5,
+            markeredgewidth=get_marker_edge_width(marker),
         )
     if SAVEPLOTS:
         plt.tight_layout()
@@ -290,10 +294,6 @@ for i, (p, label_number) in enumerate(PARAMS_PHI1):
 ##############################################################################
 ##############################################################################
 ##  Tilt time course for binary choice
-FIGNAME = "phi1_tau_timecourse"  # appended with index i
-FIGSIZE = (6*sf, 4.1*sf)
-
-fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
 
 sigparams = np.array([
     [2.0, 0.0, 0.5, 2.0],
@@ -344,9 +344,37 @@ ps_saved = ps_saved[0]
 
 plot_ts = [0, 2, 4, 6, 8]
 
-ax.plot(
-    ts, taus_timecourse, 
-    label=["$\\tau_1$", "$\\tau_2$"])
+FIGNAME = "phi1_tau_timecourse"  # appended with index i
+FIGSIZE = (6*sf, 4.1*sf)
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
+
+for i in range(2):
+    ax.plot(
+        ts, taus_timecourse[:,i], 
+        label=["$\\tau_1$", "$\\tau_2$"][i],
+        color=[CHIR_COLOR, FGF_COLOR][i],
+    )
+# ax.legend(bbox_to_anchor=(1.05, 1.25), loc='upper left', frameon=False)
+ax.legend(loc='lower center')
+
+for plot_t in plot_ts:
+    ax.axvline(plot_t, color='k', alpha=0.5, linestyle='--')
+
+if SAVEPLOTS:
+    plt.savefig(f"{OUTDIR}/{FIGNAME}", transparent=True)
+plt.close()
+
+
+FIGNAME = "phi1_sig_timecourse"  # appended with index i
+FIGSIZE = (6*sf, 4.1*sf)
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
+
+for i in range(2):
+    ax.plot(
+        ts, taus_timecourse[:,i], 
+        label=["$s_1$", "$s_2$"][i],
+        color=[CHIR_COLOR, FGF_COLOR][i]
+    )
 ax.legend(loc='lower center')
 
 for plot_t in plot_ts:
@@ -401,7 +429,7 @@ for i, plot_t in enumerate(plot_ts):
             marker=marker,
             markersize=3,
             markeredgecolor='w',
-            markeredgewidth=0.2 if marker == 'o' else 0.5,
+            markeredgewidth=get_marker_edge_width(marker),
         )
     
     ax.plot(
@@ -462,7 +490,7 @@ for i, p in enumerate(PARAMS_PHI2):
             marker=marker,
             markersize=3,
             markeredgecolor='w',
-            markeredgewidth=0.2 if marker == 'o' else 0.5,
+            markeredgewidth=get_marker_edge_width(marker),
         )
     if SAVEPLOTS:
         plt.savefig(f"{OUTDIR}/{FIGNAME}_{i}")

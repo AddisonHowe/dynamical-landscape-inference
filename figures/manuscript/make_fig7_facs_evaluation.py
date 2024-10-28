@@ -4,19 +4,12 @@ Generate plots used in Figure 7 of the accompanying manuscript.
 """
 
 import os
-import warnings
-import time
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('figures/manuscript/styles/fig_6.mplstyle')
 
-import tqdm.notebook as tqdm
 import jax
 jax.config.update("jax_enable_x64", True)
-import jax.numpy as jnp
-import jax.random as jrandom
-
-import equinox as eqx
 
 
 MODELDIR = "model_facs_v3_dec1b_2dpca_v12b_20240719_005108"
@@ -193,6 +186,7 @@ for dataset_key in KEY_LIST:
             l, = ax.plot(
                 timepoints, mean_loss_over_samps,
                 linestyle=['-', '--'][condidx % 2],
+                color=['k', 'grey'][condidx % 2],
             )
             legend_handles.append(l)
             legend_labels.append(cond_name)

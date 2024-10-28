@@ -302,7 +302,8 @@ CONTOUR_ALPHA = 1.0
 CONTOUR_LEVELS = [0.95, 0.75, 0.5]  # plot level sets of GMMs at alpha level
 
 COMPONENT_COLORS = [
-    'purple', 'cyan', 'orange'
+    # 'purple', 'cyan', 'orange'
+    'grey', 'grey', 'grey'
 ]
 
 figsize = (10*sf, 8*sf)
