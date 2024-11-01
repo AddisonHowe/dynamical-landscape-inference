@@ -187,5 +187,28 @@
 - Data source: `facs_dec1_v1`
     - [run_facs_dec1_v1_argset1](../model_training_args/facs/run_facs_dec1_v1_argset1.tsv)
         - [model_facs_dec1_v1_argset1_20241017_113153](./facs/model_facs_dec1_v1_argset1_20241017_113153)
+
+- Data source: `facs_dec1_v2`
+    - [run_facs_dec1_v2_argset1](../model_training_args/facs/run_facs_dec1_v2_argset1.tsv)
+        - [model_facs_dec1_v2_argset1_20241030_191743](./facs/model_facs_dec1_v2_argset1_20241030_191743)
+    - [run_facs_dec1_v2_argset2](../model_training_args/facs/run_facs_dec1_v2_argset2.tsv)
+        - [model_facs_dec1_v2_argset2_20241031_141541](./facs/model_facs_dec1_v2_argset2_20241031_141541)
+    - [run_facs_dec1_v2_argset3](../model_training_args/facs/run_facs_dec1_v2_argset3.tsv)
+        - [model_facs_dec1_v2_argset3_20241031_143817](./facs/model_facs_dec1_v2_argset3_20241031_143817)
+
+- Data source: `facs_dec1_v3`
+
+- Data source: `facs_dec2_v1`
     - [run_facs_dec2_v1_argset1](../model_training_args/facs/run_facs_dec2_v1_argset1.tsv)
         - [model_facs_dec2_v1_argset1_20241017_113100](./facs/model_facs_dec2_v1_argset1_20241017_113100)
+
+- Data source: `facs_dec2_v2`
+    - [run_facs_dec2_v2_argset1](../model_training_args/facs/run_facs_dec2_v2_argset1.tsv)
+        - [model_facs_dec2_v2_argset1_20241031_122042](./facs/model_facs_dec2_v2_argset1_20241031_122042)
+    - [run_facs_dec2_v2_argset2](../model_training_args/facs/run_facs_dec2_v2_argset2.tsv)
+        - [model_facs_dec2_v2_argset2_20241031_141539](./facs/model_facs_dec2_v2_argset2_20241031_141539)
+    - [run_facs_dec2_v2_argset3](../model_training_args/facs/run_facs_dec2_v2_argset3.tsv)
+        - [model_facs_dec2_v2_argset3_20241031_142703](./facs/model_facs_dec2_v2_argset3_20241031_142703)
+
+- Data source: `facs_dec2_v3`
+    - [run_facs_dec2_v3_argset1](../model_training_args/facs/run_facs_dec2_v3_argset1.tsv)
