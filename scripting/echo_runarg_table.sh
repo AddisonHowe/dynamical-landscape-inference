@@ -84,8 +84,8 @@ foo () {
     ' < "$fpath"
 }
 
-echo $header'\\n'
-echo $seprow'\\n'
+printf "$header"'\\n'
+printf "$seprow"'\\n'
 for fname in ${fnames[@]}; do
     fpath=$datdir/$fname
     foo $fpath
