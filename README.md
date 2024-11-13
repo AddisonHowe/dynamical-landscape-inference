@@ -193,6 +193,7 @@ The training process generates an output model directory containing log files an
 
 ### Model evaluation
 After the training process, we evaluate the resulting model using the notebooks contained in `notebooks/model_evaluation/`.
+These notebooks create a number of plots, detailing the evolution of the model over the course of training and the resulting system.
 The bash scripts located in `scripting/model_evaluation/` automate this process, and can be run as follows:
 
 ```bash
@@ -212,6 +213,25 @@ sh scripting/model_evaluation/run_all_nb_eval_model_alg_quadratic.sh
 ```
 
 These commands will run the model evaluation notebook on all models listed in the corresponding arglist file, and generate output in the directory `data/model_evaluation/`.
+
+It may also be the case that we would like to examine the performance of the trained model on a particular dataset.
+The `model_eval` entrypoint allows us to do so, as follows:
+
+```bash
+model_eval \
+    --basedir data/trained_models/<plnn_synbindec> \  # location of trained model
+    --modeldir <modelname> \            # the model directory
+    --datdirbase data/training_data \   # base directory containing data
+    --datdir <datdir> \                 # data directory
+    --dataset <train-test-valid> \      # subdirectory within <datdir>
+    --dt0 <dt0> \                       # initial model timestep to use
+    --batch_size 20 \       # batch size
+    --nresamp 1 \           # num resamplings to perform for each datapoint
+    --nreps 10 \            # num simulations to run for each (re)sampled datapoint
+    --outdir <outdir> \     # directory to save output
+    --nosuboutdir           # save output directly in <outdir>
+```
+
 
 ### Automated figure generation
 The images generated in the evaluation process can be arranged into a set of pdfs in an automated procedure, using the scripts available in the `scripting/autofig/` directory.

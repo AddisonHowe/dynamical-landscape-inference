@@ -34,7 +34,7 @@ echo_trained_models () {
     arglistfnames=()
     datdirs=()
     errors=()
-    for modeldir in $basemodeldir/*; do
+    for modeldir in $basemodeldir/model_*; do
         modelname=$(basename $modeldir)
         modelnames+=($modelname)
         # Remove prefix model_ and suffix timestamp from to get arglist filename
