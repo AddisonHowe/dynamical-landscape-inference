@@ -58,11 +58,23 @@ sf = 1/2.54  # scale factor from [cm] to inches
 
 BASEMODELDIR = "data/trained_models/plnn_synbindec"
 
-DT_TO_DATDIR = {
+# Specify the data on which the model was trained
+DT_TO_DATDIR_TRAIN = {
     5  : f"data/training_data/data_{VERSION}a",
     10 : f"data/training_data/data_{VERSION}b",
     20 : f"data/training_data/data_{VERSION}c",
 }
+
+# Specify the data on which the model was evaluated
+DT_TO_DATDIR_EVAL = {
+    5  : f"data/training_data/data_{VERSION}t",
+    10 : f"data/training_data/data_{VERSION}t",
+    20 : f"data/training_data/data_{VERSION}t",
+}
+
+# Directory within model directory containing results of evaluation
+EVAL_RESULTS_DIR = f"eval_data_{VERSION}t"
+
 
 if VERSION == 'phi1_2':
     DT_TO_MODELS = {
@@ -130,6 +142,19 @@ elif VERSION == 'phi1_4':
             "model_phi1_4a_v_mmd1_20240823_171624",
             "model_phi1_4a_v_mmd1_20240826_101447",
             "model_phi1_4a_v_mmd1_20240826_102013",
+
+            # "model_phi1_4a_v_mmd1_20240822_132805",
+            # "model_phi1_4a_v_mmd1_20240822_141949",
+            # "model_phi1_4a_v_mmd1_20240822_144331",
+            # "model_phi1_4a_v_mmd1_20240822_144616",
+            # "model_phi1_4a_v_mmd1_20240823_171624",
+            # "model_phi1_4a_v_mmd1_20240823_175457",
+            # "model_phi1_4a_v_mmd1_20240826_101447",
+            # "model_phi1_4a_v_mmd1_20240826_102013",
+            # "model_phi1_4a_v_mmd1_20241105_145429",
+            # "model_phi1_4a_v_mmd1_20241105_145623",
+            # "model_phi1_4a_v_mmd1_20241105_152654",
+            # "model_phi1_4a_v_mmd1_20241105_153219",
         ],
         10: [
             "model_phi1_4b_v_mmd1_20240822_132805",
@@ -140,6 +165,19 @@ elif VERSION == 'phi1_4':
             "model_phi1_4b_v_mmd1_20240823_171538",
             "model_phi1_4b_v_mmd1_20240823_171624",
             "model_phi1_4b_v_mmd1_20240823_182813",
+            
+            # "model_phi1_4b_v_mmd1_20240822_132805",
+            # "model_phi1_4b_v_mmd1_20240822_144432",
+            # "model_phi1_4b_v_mmd1_20240822_144616",
+            # "model_phi1_4b_v_mmd1_20240822_144632",
+            # "model_phi1_4b_v_mmd1_20240823_171535",
+            # "model_phi1_4b_v_mmd1_20240823_171538",
+            # "model_phi1_4b_v_mmd1_20240823_171624",
+            # "model_phi1_4b_v_mmd1_20240823_182813",
+            # "model_phi1_4b_v_mmd1_20241105_145429",
+            # "model_phi1_4b_v_mmd1_20241105_150748",
+            # "model_phi1_4b_v_mmd1_20241105_152741",
+            # "model_phi1_4b_v_mmd1_20241105_160745",
         ],
         20: [
             "model_phi1_4c_v_mmd1_20240822_132805",
@@ -150,10 +188,23 @@ elif VERSION == 'phi1_4':
             "model_phi1_4c_v_mmd1_20240823_171538",
             "model_phi1_4c_v_mmd1_20240823_174127",
             "model_phi1_4c_v_mmd1_20240823_183416",
+
+            # "model_phi1_4c_v_mmd1_20240822_132805",
+            # "model_phi1_4c_v_mmd1_20240822_144644",
+            # "model_phi1_4c_v_mmd1_20240822_144956",
+            # "model_phi1_4c_v_mmd1_20240822_152345",
+            # "model_phi1_4c_v_mmd1_20240823_171535",
+            # "model_phi1_4c_v_mmd1_20240823_171538",
+            # "model_phi1_4c_v_mmd1_20240823_174127",
+            # "model_phi1_4c_v_mmd1_20240823_183416",
+            # "model_phi1_4c_v_mmd1_20241105_145450",
+            # "model_phi1_4c_v_mmd1_20241105_150837",
+            # "model_phi1_4c_v_mmd1_20241105_153004",
+            # "model_phi1_4c_v_mmd1_20241105_161814",
         ]
     }
 
-dt_list = np.sort(list(DT_TO_DATDIR.keys()))
+dt_list = np.sort(list(DT_TO_DATDIR_TRAIN.keys()))
 
 
 def get_models_sorted(dt):
@@ -183,12 +234,12 @@ offset = 0.1
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
 
 for dt_idx, dt in enumerate(dt_list):
-    datdir = DT_TO_DATDIR[dt]
+    datdir = DT_TO_DATDIR_EVAL[dt]
     model_list, epoch_list = get_models_sorted(dt)
 
     num_models = len(model_list)
     for i, m in enumerate(model_list):
-        loss_data_dir = f"{BASEMODELDIR}/{m}/eval"
+        loss_data_dir = f"{BASEMODELDIR}/{m}/{EVAL_RESULTS_DIR}"
         filelist = [
             f.removesuffix('.npy') 
             for f in os.listdir(loss_data_dir) 
@@ -236,7 +287,7 @@ offset = 0.2
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 
 for dt_idx, dt in enumerate(dt_list):
-    datdir = DT_TO_DATDIR[dt]
+    datdir = DT_TO_DATDIR_EVAL[dt]
     model_list, epoch_list = get_models_sorted(dt)
 
     num_models = len(model_list)
@@ -245,7 +296,7 @@ for dt_idx, dt in enumerate(dt_list):
     boxwidth = total_width / (num_models * (1 + hspace_factor) - hspace_factor)
     offset = boxwidth + hspace_factor * boxwidth
     for i, m in enumerate(model_list):
-        loss_data_dir = f"{BASEMODELDIR}/{m}/eval"
+        loss_data_dir = f"{BASEMODELDIR}/{m}/{EVAL_RESULTS_DIR}"
         filelist = [
             f.removesuffix('.npy') 
             for f in os.listdir(loss_data_dir) 
@@ -316,7 +367,7 @@ threshold_to_plot = THRESHOLD
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 
 for dt_idx, dt in enumerate(dt_list):
-    datdir = DT_TO_DATDIR[dt]
+    datdir = DT_TO_DATDIR_EVAL[dt]
     model_list, epoch_list = get_models_sorted(dt)
 
     datdir_train = f"{datdir}/training"
@@ -338,7 +389,7 @@ for dt_idx, dt in enumerate(dt_list):
 
     num_models = len(model_list)
     for i, m in enumerate(model_list):
-        loss_data_dir = f"{BASEMODELDIR}/{m}/eval"
+        loss_data_dir = f"{BASEMODELDIR}/{m}/{EVAL_RESULTS_DIR}"
         filelist = [
             f.removesuffix('.npy') 
             for f in os.listdir(loss_data_dir) 
@@ -366,9 +417,6 @@ for dt_idx, dt in enumerate(dt_list):
         for condidx in range(nconds):
             for tpidx in range(ndata_per_cond):
                 data_idx = condidx * ndata_per_cond + tpidx
-                td1 = test_dset[data_idx]
-                td2 = test_dset[data_idx]
-                assert np.all(td1[0][1] == td2[0][1]) and np.all(td1[1] == td2[1])
                 (t0, x0, t1, sp), x1 = test_dset[data_idx]
                 assert np.allclose(sp, conditions[condidx, tpidx])
                 nbrs0 = NearestNeighbors(n_neighbors=10, algorithm='ball_tree').fit(x0)
@@ -440,12 +488,11 @@ FIGSIZE = (2.5*sf, 2.5*sf)
 SIG_TO_PLOT = [-0.5, 1]
 
 for dt_idx, dt in enumerate(dt_list):
-    datdir = DT_TO_DATDIR[dt]
     model_list, epoch_list = get_models_sorted(dt)
     num_models = len(model_list)
     for i, m in enumerate(model_list):
         modeldir = f"{BASEMODELDIR}/{m}"
-        loss_data_dir = f"{modeldir}/eval"
+        loss_data_dir = f"{modeldir}/{EVAL_RESULTS_DIR}"
         
         fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
 
@@ -512,7 +559,7 @@ NIDXS_HIGHLIGHT = 0
 highlight_colors = ['k', 'r']
 
 for dt_idx, dt in enumerate(dt_list):
-    datdir = DT_TO_DATDIR[dt]
+    datdir = DT_TO_DATDIR_TRAIN[dt]
     model_list, epoch_list = get_models_sorted(dt)
 
     datdir_train = f"{datdir}/training"
@@ -620,7 +667,7 @@ yrange = train_ax_ylims
 dx = dy = 0.05
 
 for dt_idx, dt in enumerate(dt_list):
-    datdir = DT_TO_DATDIR[dt]
+    datdir = DT_TO_DATDIR_TRAIN[dt]
     model_list = DT_TO_MODELS[dt]
 
     datdir_train = f"{datdir}/training"
