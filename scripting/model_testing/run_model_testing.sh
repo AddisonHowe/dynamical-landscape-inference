@@ -81,8 +81,8 @@ outdir=${basedir}/${modelname}/testing/eval_$datdir
 mkdir -p $outdir
 
 # Main loop
-for key in $key_list; do
-    for dt0 in $dt0_list; do
+for key in ${key_list[@]}; do
+    for dt0 in ${dt0_list[@]}; do
         model_eval --dataset $key --dt0 $dt0 \
             --nresamp 1 --nreps 10 --batch_size 20 \
             --modeldir $modelname \
