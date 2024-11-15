@@ -73,7 +73,7 @@ DT_TO_DATDIR_EVAL = {
 }
 
 # Directory within model directory containing results of evaluation
-EVAL_RESULTS_DIR = f"eval_data_{VERSION}t"
+EVAL_RESULTS_DIR = f"testing/eval_data_{VERSION}t"
 
 
 if VERSION == 'phi1_2':
