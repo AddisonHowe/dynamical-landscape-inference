@@ -138,21 +138,25 @@ subax = inset_axes(ax,
 )
 subax.set_aspect('equal')
 subax.axis('off')
-scale = 1.0
+subax.set_xlim([-1.25, 1.25])
+subax.set_ylim([-1.25, 1.25])
+tilt_arrow_width = 0.001
 subax.arrow(
     0, 0, -1, 0, 
-    width=0.01*scale, 
+    width=tilt_arrow_width, 
+    head_width=100*tilt_arrow_width, 
+    length_includes_head=True, 
     fc=CHIR_COLOR, ec=CHIR_COLOR,
     label="$s_1$"
 )
 subax.arrow(
     0, 0, 0, -1, 
-    width=0.01*scale, 
+    width=tilt_arrow_width, 
+    head_width=100*tilt_arrow_width, 
+    length_includes_head=True, 
     fc=FGF_COLOR, ec=FGF_COLOR,
     label="$s_2$"
 )
-subax.set_xlim([-scale*1.2, scale*1.2])
-subax.set_ylim([-scale*1.2, scale*1.2])
 
 plt.savefig(f"{OUTDIR}/{FIGNAME}", transparent=True)
 plt.close()
@@ -212,6 +216,7 @@ ax = plot_phi(
     r=r, res=res,
     lognormalize=lognormalize,
     clip=clip,
+    include_tilt_inset=True,
     title="Inferred",
     ncontours=10,
     contour_linewidth=0.5,
@@ -230,7 +235,7 @@ ax = plot_phi(
 ax.set_xticks([-2, 0, 2])
 ax.set_yticks([-2, 0, 2])
 
-cax = fig.get_axes()[1]
+cax = fig.get_axes()[2]
 cax.set_yticks([0, 1, 2, 3])
 
 mins = estimate_minima(
@@ -242,32 +247,6 @@ mins = estimate_minima(
 )
 for m in mins:
     ax.plot(m[0], m[1], marker='.', color='y', markersize=3)
-
-# Plot signal effect inset
-subax = inset_axes(ax,
-    width=INSET_SCALE,
-    height=INSET_SCALE,
-    loc=3,
-    # bbox_to_anchor=(0, 0, 1, 1),
-    # bbox_transform=ax.transAxes,
-)
-subax.set_aspect('equal')
-subax.axis('off')
-scale = np.max(np.abs(tilt_weights))
-subax.arrow(
-    0, 0, -tilt_weights[0,0], -tilt_weights[1,0], 
-    width=0.01*scale, 
-    fc=CHIR_COLOR, ec=CHIR_COLOR,
-    label="$s_1$"
-)
-subax.arrow(
-    0, 0, -tilt_weights[0,1], -tilt_weights[1,1], 
-    width=0.01*scale, 
-    fc=FGF_COLOR, ec=FGF_COLOR,
-    label="$s_2$"
-)
-subax.set_xlim([-scale*1.2, scale*1.2])
-subax.set_ylim([-scale*1.2, scale*1.2])
 
 plt.savefig(f"{OUTDIR}/{FIGNAME}", transparent=True)
 plt.close()

@@ -97,111 +97,74 @@ if VERSION == 'phi1_2':
             "model_phi1_2c_v_mmd1_20240813_194114",
         ]
     } 
+    DT_TO_LABELS = {
+        5 : {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
+        10: {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
+        20: {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
+    }
 elif VERSION == 'phi1_3':
     DT_TO_MODELS = {
         5: [
-            "model_phi1_3a_v_mmd1_20240822_132757",
-            "model_phi1_3a_v_mmd1_20240822_142013",
-            "model_phi1_3a_v_mmd1_20240822_142221",
-            "model_phi1_3a_v_mmd1_20240822_142352",
-            "model_phi1_3a_v_mmd1_20240823_172003",
-            "model_phi1_3a_v_mmd1_20240823_172105",
-            "model_phi1_3a_v_mmd1_20240823_172338",
-            "model_phi1_3a_v_mmd1_20240823_172634",
+            "model_phi1_3a_v_mmd1_20241105_144128",
+            "model_phi1_3a_v_mmd1_20241105_152921",
+            "model_phi1_3a_v_mmd1_20241105_153401",
+            "model_phi1_3a_v_mmd1_20241105_155337",
         ],
         10: [
-            "model_phi1_3b_v_mmd1_20240822_132815",
-            "model_phi1_3b_v_mmd1_20240822_142553",
-            "model_phi1_3b_v_mmd1_20240822_152909",
-            "model_phi1_3b_v_mmd1_20240822_153440",
-            "model_phi1_3b_v_mmd1_20240823_172003",
-            "model_phi1_3b_v_mmd1_20240823_172217",
-            "model_phi1_3b_v_mmd1_20240823_172338",
-            "model_phi1_3b_v_mmd1_20240823_172713",
-            
+            "model_phi1_3b_v_mmd1_20241105_150340",
+            "model_phi1_3b_v_mmd1_20241105_153156",
+            "model_phi1_3b_v_mmd1_20241105_153529",
+            "model_phi1_3b_v_mmd1_20241105_164252",
         ],
         20: [
-            "model_phi1_3c_v_mmd1_20240822_133026",
-            "model_phi1_3c_v_mmd1_20240822_142221",
-            "model_phi1_3c_v_mmd1_20240822_142314",
-            "model_phi1_3c_v_mmd1_20240822_142622",
-            "model_phi1_3c_v_mmd1_20240823_172003",
-            "model_phi1_3c_v_mmd1_20240823_172231",
-            "model_phi1_3c_v_mmd1_20240823_172434",
-            "model_phi1_3c_v_mmd1_20240823_172912",
+            "model_phi1_3c_v_mmd1_20241105_151109",
+            "model_phi1_3c_v_mmd1_20241105_153156",
+            "model_phi1_3c_v_mmd1_20241105_153655",
+            "model_phi1_3c_v_mmd1_20241105_164507",
         ]
+    }
+    DT_TO_LABELS = {
+        5 : {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
+        10: {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
+        20: {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
     }
 elif VERSION == 'phi1_4':
     DT_TO_MODELS = {
         5: [
-            "model_phi1_4a_v_mmd1_20240822_132805",
-            "model_phi1_4a_v_mmd1_20240822_141949",
-            "model_phi1_4a_v_mmd1_20240822_144331",
-            "model_phi1_4a_v_mmd1_20240822_144616",
-            "model_phi1_4a_v_mmd1_20240823_175457",
-            "model_phi1_4a_v_mmd1_20240823_171624",
-            "model_phi1_4a_v_mmd1_20240826_101447",
-            "model_phi1_4a_v_mmd1_20240826_102013",
-
-            # "model_phi1_4a_v_mmd1_20240822_132805",
-            # "model_phi1_4a_v_mmd1_20240822_141949",
-            # "model_phi1_4a_v_mmd1_20240822_144331",
-            # "model_phi1_4a_v_mmd1_20240822_144616",
-            # "model_phi1_4a_v_mmd1_20240823_171624",
-            # "model_phi1_4a_v_mmd1_20240823_175457",
-            # "model_phi1_4a_v_mmd1_20240826_101447",
-            # "model_phi1_4a_v_mmd1_20240826_102013",
-            # "model_phi1_4a_v_mmd1_20241105_145429",
-            # "model_phi1_4a_v_mmd1_20241105_145623",
-            # "model_phi1_4a_v_mmd1_20241105_152654",
-            # "model_phi1_4a_v_mmd1_20241105_153219",
+            "model_phi1_4a_v_mmd1_20241105_145429",
+            "model_phi1_4a_v_mmd1_20241105_145623",
+            "model_phi1_4a_v_mmd1_20241105_152654",
+            "model_phi1_4a_v_mmd1_20241105_153219",
+            "model_phi1_4a_v_mmd1_20241125_131526",
+            "model_phi1_4a_v_mmd1_20241125_131737",
+            "model_phi1_4a_v_mmd1_20241125_132908",
+            "model_phi1_4a_v_mmd1_20241125_133424",
         ],
         10: [
-            "model_phi1_4b_v_mmd1_20240822_132805",
-            "model_phi1_4b_v_mmd1_20240822_144432",
-            "model_phi1_4b_v_mmd1_20240822_144616",
-            "model_phi1_4b_v_mmd1_20240822_144632",
-            "model_phi1_4b_v_mmd1_20240823_171535",
-            "model_phi1_4b_v_mmd1_20240823_171538",
-            "model_phi1_4b_v_mmd1_20240823_171624",
-            "model_phi1_4b_v_mmd1_20240823_182813",
-            
-            # "model_phi1_4b_v_mmd1_20240822_132805",
-            # "model_phi1_4b_v_mmd1_20240822_144432",
-            # "model_phi1_4b_v_mmd1_20240822_144616",
-            # "model_phi1_4b_v_mmd1_20240822_144632",
-            # "model_phi1_4b_v_mmd1_20240823_171535",
-            # "model_phi1_4b_v_mmd1_20240823_171538",
-            # "model_phi1_4b_v_mmd1_20240823_171624",
-            # "model_phi1_4b_v_mmd1_20240823_182813",
-            # "model_phi1_4b_v_mmd1_20241105_145429",
-            # "model_phi1_4b_v_mmd1_20241105_150748",
-            # "model_phi1_4b_v_mmd1_20241105_152741",
-            # "model_phi1_4b_v_mmd1_20241105_160745",
+            "model_phi1_4b_v_mmd1_20241105_145429",
+            "model_phi1_4b_v_mmd1_20241105_150748",
+            "model_phi1_4b_v_mmd1_20241105_152741",
+            "model_phi1_4b_v_mmd1_20241105_160745",
+            "model_phi1_4b_v_mmd1_20241125_125505",
+            "model_phi1_4b_v_mmd1_20241125_132538",
+            "model_phi1_4b_v_mmd1_20241125_132639",
+            "model_phi1_4b_v_mmd1_20241125_132713",
         ],
         20: [
-            "model_phi1_4c_v_mmd1_20240822_132805",
-            "model_phi1_4c_v_mmd1_20240822_144644",
-            "model_phi1_4c_v_mmd1_20240822_144956",
-            "model_phi1_4c_v_mmd1_20240822_152345",
-            "model_phi1_4c_v_mmd1_20240823_171535",
-            "model_phi1_4c_v_mmd1_20240823_171538",
-            "model_phi1_4c_v_mmd1_20240823_174127",
-            "model_phi1_4c_v_mmd1_20240823_183416",
-
-            # "model_phi1_4c_v_mmd1_20240822_132805",
-            # "model_phi1_4c_v_mmd1_20240822_144644",
-            # "model_phi1_4c_v_mmd1_20240822_144956",
-            # "model_phi1_4c_v_mmd1_20240822_152345",
-            # "model_phi1_4c_v_mmd1_20240823_171535",
-            # "model_phi1_4c_v_mmd1_20240823_171538",
-            # "model_phi1_4c_v_mmd1_20240823_174127",
-            # "model_phi1_4c_v_mmd1_20240823_183416",
-            # "model_phi1_4c_v_mmd1_20241105_145450",
-            # "model_phi1_4c_v_mmd1_20241105_150837",
-            # "model_phi1_4c_v_mmd1_20241105_153004",
-            # "model_phi1_4c_v_mmd1_20241105_161814",
+            "model_phi1_4c_v_mmd1_20241105_145450",
+            "model_phi1_4c_v_mmd1_20241105_150837",
+            "model_phi1_4c_v_mmd1_20241105_153004",
+            "model_phi1_4c_v_mmd1_20241105_161814",
+            "model_phi1_4c_v_mmd1_20241125_125505",
+            "model_phi1_4c_v_mmd1_20241125_132639",
+            "model_phi1_4c_v_mmd1_20241125_132908",
+            "model_phi1_4c_v_mmd1_20241125_134138",
         ]
+    }
+    DT_TO_LABELS = {
+        5 : {0: 'A', 2: 'B', 4: 'C', 6: 'D'},
+        10: {0: 'A', 1: 'B', 5: 'C', 7: 'D'},
+        20: {0: 'A', 1: 'B', 4: 'C', 7: 'D'},
     }
 
 dt_list = np.sort(list(DT_TO_DATDIR_TRAIN.keys()))
@@ -289,6 +252,7 @@ fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 for dt_idx, dt in enumerate(dt_list):
     datdir = DT_TO_DATDIR_EVAL[dt]
     model_list, epoch_list = get_models_sorted(dt)
+    labeled_subset = DT_TO_LABELS[dt]
 
     num_models = len(model_list)
     total_width = 0.9
@@ -336,7 +300,14 @@ for dt_idx, dt in enumerate(dt_list):
         )
         for patch in bplot['boxes']:
             patch.set_facecolor(colors[dt_idx])
-
+        if i in labeled_subset.keys():
+            ypos = bplot['caps'][1].get_data()[1][0]
+            ax.text(
+                xpos, ypos+0.01, 
+                f"{labeled_subset[i]}",
+                fontsize=6,
+                ha='center', va='bottom', 
+            )
 
 # ax.text(
 #     0.01, 0.99, f"outliers included" if show_outliers else "outliers excluded", 
@@ -346,6 +317,7 @@ for dt_idx, dt in enumerate(dt_list):
 # )
 ax.set_xlim(ax.get_xlim()[0] + 2 * offset, ax.get_xlim()[1] - 2 * offset)
 ax.set_xticks(range(1, len(dt_list) + 1), dt_list)
+ax.set_yticks(np.arange(0, 2.25, 0.25))
 ax.set_xlabel("Sampling interval $\Delta T$")
 ax.set_ylabel("Error")
 ax.set_title("Generalization error")
@@ -489,7 +461,9 @@ SIG_TO_PLOT = [-0.5, 1]
 
 for dt_idx, dt in enumerate(dt_list):
     model_list, epoch_list = get_models_sorted(dt)
+    labeled_subset = DT_TO_LABELS[dt]
     num_models = len(model_list)
+    plot_counter = 0
     for i, m in enumerate(model_list):
         modeldir = f"{BASEMODELDIR}/{m}"
         loss_data_dir = f"{modeldir}/{EVAL_RESULTS_DIR}"
@@ -529,24 +503,36 @@ for dt_idx, dt in enumerate(dt_list):
             r=2,
             res=50,
             show=True,
+            include_tilt_inset=True,
             include_cbar=False,
             cbar_title="",
             title="",
             xlabel=None, ylabel=None,
             xticks=False, yticks=False,
             ax=ax,
+            tight_layout=False,
         )
-        # ax.text(
-        #     0.99, 0.01, f"epoch: {epoch_loaded}\n$\mathtt{{dt}}$: {model.get_dt0()}", 
-        #     fontsize=6,
-        #     ha='right', va='bottom', 
-        #     transform=ax.transAxes
-        # )
 
         plt.savefig(
             f"{OUTDIR}/model_dt_{dt}_{i}.pdf", 
-            bbox_inches='tight', pad_inches = 0
+            bbox_inches='tight', pad_inches=0
         )
+
+        if i in labeled_subset.keys():
+            ax.text(
+                0.99, 0.01, 
+                # f"epoch: {epoch_loaded}\n$\mathtt{{dt}}$: {model.get_dt0()}", 
+                f"{labeled_subset[i]}",
+                fontsize=6,
+                ha='right', va='bottom', 
+                transform=ax.transAxes
+            )
+            plt.savefig(
+                f"{OUTDIR}/model_dt_{dt}_plot_{plot_counter}.pdf", 
+                bbox_inches='tight', pad_inches=0
+            )
+            plot_counter += 1
+
         plt.close()
 
 

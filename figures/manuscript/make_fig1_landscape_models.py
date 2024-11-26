@@ -513,13 +513,13 @@ plot_binary_choice_bifurcation_diagram(
     ylabel="$\\tau_2$",
 )
 
-ax.plot(
-    taus_timecourse[:,0], taus_timecourse[:,1],
-    color='grey', 
-    linewidth=1.5,
-    alpha=0.8,
-    linestyle='-',
-)
+# ax.plot(
+#     taus_timecourse[:,0], taus_timecourse[:,1],
+#     color='grey', 
+#     linewidth=1.5,
+#     alpha=0.8,
+#     linestyle='-',
+# )
 
 for p, label_number in PARAMS_PHI1:
     ax.plot(*p, '.k', alpha=1.0, markersize=PARAM_MARKERSIZE)

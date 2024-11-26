@@ -11,7 +11,6 @@ import jax.random as jrandom
 
 import matplotlib.pyplot as plt
 plt.style.use('figures/supplement/styles/fig_standard.mplstyle')
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from plnn.models import DeepPhiPLNN
 from plnn.dataset import get_dataloaders
@@ -142,6 +141,10 @@ ax = plot_phi(
     res=res,
     lognormalize=lognormalize,
     clip=clip,
+    include_tilt_inset=True,
+    inset_scale='40%',
+    inset_loc='lower right',
+    inset_bbox_to_anchor=(0.07, -0.1, 1, 1), 
     title=f"CHIR: {SIG_TO_PLOT[0]:.1f}, FGF: {SIG_TO_PLOT[1]:.1f}",
     ncontours=10,
     contour_linewidth=0.5,
@@ -153,6 +156,7 @@ ax = plot_phi(
     equal_axes=True,
     saveas=None,
     show=True,
+    tight_layout=False,
     figsize=FIGSIZE,
 )
 
@@ -207,6 +211,10 @@ for i, sig_to_plot in enumerate(SIGNALS_TO_PLOT):
         res=res,
         lognormalize=lognormalize,
         clip=clip,
+        include_tilt_inset=True,
+        inset_scale='40%',
+        inset_loc='lower right',
+        inset_bbox_to_anchor=(0.07, -0.1, 1, 1), 
         title=f"CHIR: {sig_to_plot[0]:.1f}, FGF: {sig_to_plot[1]:.1f}",
         ncontours=10,
         contour_linewidth=0.5,
@@ -218,46 +226,9 @@ for i, sig_to_plot in enumerate(SIGNALS_TO_PLOT):
         equal_axes=True,
         saveas=None,
         show=True,
+        tight_layout=False,
         figsize=FIGSIZE,
     )
-
-    # Plot signal effect inset
-    subax = inset_axes(ax,
-        width=INSET_SCALE,
-        height=INSET_SCALE,
-        loc='lower right',
-        bbox_to_anchor=(0.07, -0.1, 1, 1),
-        bbox_transform=ax.transAxes,
-    )
-    subax.set_aspect('equal')
-    subax.axis('off')
-    scale = np.max(np.abs(tilt_weights))
-    arr1 = subax.arrow(
-        0, 0, -tilt_weights[0,0], -tilt_weights[1,0], 
-        width=0.01*scale, 
-        fc=CHIR_COLOR, ec=CHIR_COLOR,
-        label="CHIR"
-    )
-    # subax.annotate(
-    #     "CHIR", (-tilt_weights[0,0], -tilt_weights[1,0]), 
-    #     ha='right', va='bottom', 
-    #     fontsize=6, 
-    # )
-     
-    arr2 = subax.arrow(
-        0, 0, -tilt_weights[0,1], -tilt_weights[1,1], 
-        width=0.01*scale, 
-        fc=FGF_COLOR, ec=FGF_COLOR,
-        label="FGF"
-    )
-    # subax.annotate(
-    #     "FGF", (-tilt_weights[0,1], -tilt_weights[1,1]), 
-    #     ha='right', va='bottom', 
-    #     fontsize=6, 
-    # )
-    
-    subax.set_xlim([-scale*1.2, scale*1.2])
-    subax.set_ylim([-scale*1.2, scale*1.2])
 
     # Find and plot minima
     mins = estimate_minima(
