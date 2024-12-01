@@ -11,6 +11,7 @@
 # EXAMPLE: sh run_model_testing_phi1_3a.sh
 #=============================================================================
 
+datdirbase=data/training_data
 datdir=data_phi1_3a
 
 key_list="test"
@@ -23,6 +24,7 @@ for modeldir in ${modeldirs}; do
     modelname=$(basename $modeldir)
     echo $modelname
     sh scripting/model_testing/run_model_testing.sh $basedir $modelname \
-        $datdir --key_list $key_list --dt0_list $dt0_list
+        $datdirbase $datdir --key_list $key_list --dt0_list $dt0_list \
+        --nresamp 1 --nreps 10 --batch_size 20
     printf "Completed.\n\n"
 done
