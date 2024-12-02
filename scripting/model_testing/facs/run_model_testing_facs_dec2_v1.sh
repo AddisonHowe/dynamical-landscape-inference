@@ -14,7 +14,7 @@
 datdirbase=data/facs
 datdir=facs_dec2_v1
 
-key_list="test"
+key_list="test train valid"
 dt0_list="0.025 0.0125 -1"
 
 basedir=data/trained_models/facs
