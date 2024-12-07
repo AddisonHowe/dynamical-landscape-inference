@@ -4,6 +4,7 @@ Generate plots used in Figure 7 of the accompanying manuscript.
 """
 
 import os
+import argparse
 import numpy as np
 import jax
 jax.config.update("jax_enable_x64", True)
@@ -20,13 +21,18 @@ from plnn.pl import plot_phi
 from plnn.pl import plot_loss_history
 from plnn.pl import CHIR_COLOR, FGF_COLOR
 
-from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
+from cont.plnn_bifurcations import get_plnn_bifurcation_curves
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-m', '--modeldir', type=str, required=True, 
+                    help="Name of trained model directory w/o prefix.")
+args = parser.parse_args()
 
 SEED = 12482582
 
 rng = np.random.default_rng(seed=SEED)
 
-MODELDIR = "data/trained_models/facs/model_facs_v3_dec1b_2dpca_v12b_20240719_005108"
+MODELDIR = f"data/trained_models/facs/{args.modeldir}"
 DATDIR = "data/facs/facs_dec1_v1"
 
 OUTDIR = "figures/manuscript/out/fig7_facs_evaluation"
@@ -39,6 +45,8 @@ sf = 1/2.54  # scale factor from [cm] to inches
 MINMARKERSIZE = 1
 MINMARKER = '.'
 MINCOLOR = 'y'
+
+SCATTER_COLOR = 'cyan'
 
 INSET_SCALE = "40%"
 N_EST_MIN = 100
@@ -127,7 +135,7 @@ print("y range:", YMIN, YMAX)
 FIGNAME = "loss_history"
 FIGSIZE = (7*sf, 4*sf)
 
-fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
 plot_loss_history(
     training_info['loss_hist_train'],
     training_info['loss_hist_valid'],
@@ -143,10 +151,10 @@ ax.set_xlabel("")
 ax.set_ylabel("")
 ax.set_title("")
 
-ax.get_yaxis().get_major_formatter().labelOnlyBase = False
-ax.set_yticks([0.2, 0.4, 0.6, 0.8], minor=True)
-ax.get_yaxis().set_major_formatter(ticker.ScalarFormatter())
-ax.get_yaxis().set_minor_formatter(ticker.ScalarFormatter())
+# ax.get_yaxis().get_major_formatter().labelOnlyBase = False
+# ax.set_yticks([0.2, 0.4, 0.6, 0.8], minor=True)
+# ax.get_yaxis().set_major_formatter(ticker.ScalarFormatter())
+# ax.get_yaxis().set_minor_formatter(ticker.ScalarFormatter())
 
 plt.savefig(
     f"{OUTDIR}/{FIGNAME}", transparent=True
@@ -443,7 +451,7 @@ for cond_name in CONDITIONS:
 
         ax.plot(
             xs[:,0], xs[:,1], '.',
-            color='k',
+            color=SCATTER_COLOR,
             markersize=1,
             rasterized=True,
             alpha=0.3

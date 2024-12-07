@@ -1,6 +1,6 @@
-"""Figure S1 Script
+"""Figure phi-training
 
-Generate plots used in Figure S1 of the accompanying manuscript.
+Generate plots used in Figures phi1-training and phi2-training of the supplement.
 """
 
 import argparse
@@ -10,20 +10,17 @@ import jax
 jax.config.update("jax_enable_x64", True)
 
 import matplotlib.pyplot as plt
-plt.style.use('figures/styles/fig_standard.mplstyle')
+plt.style.use('figures/supplement/styles/fig_standard.mplstyle')
 
 from plnn.io import load_model_from_directory, load_model_training_metadata
-from plnn.pl import plot_landscape, plot_phi
-from plnn.pl import plot_loss_history, plot_learning_rate_history
-from plnn.pl import plot_sigma_history
-
-from cont.binary_choice import get_binary_choice_curves
-from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
-
+from plnn.optimizers import get_dt_schedule
+import plnn.pl as pl
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--input', type=str, required=True, 
                     help="Name of trained model directory w/o prefix.")
+parser.add_argument('-o', '--outdir', type=str, default=None, 
+                    help="Name of output directory. Defaults to model name")
 parser.add_argument('--truesigma', type=float, required=True)
 parser.add_argument('--logloss', default=True, 
                     action=argparse.BooleanOptionalAction)
@@ -31,6 +28,9 @@ parser.add_argument('--startidx', default=0, type=int)
 args = parser.parse_args()
 
 modeldir = args.input  # trained model directory
+outdir = args.outdir
+if outdir is None:
+    outdir = modeldir
 
 logloss = args.logloss
 startidx = args.startidx
@@ -41,17 +41,14 @@ print("truesigma", truesigma)
 
 SAVEPLOTS = True
 
-MODELDIRBASE = "data/trained_models"
-OUTDIRBASE = "figures/out/fig_S1"
+MODELDIRBASE = "data/trained_models/plnn_synbindec"
+OUTDIRBASE = "figures/supplement/out/fig_phi_training"
 SEED = 12345
 rng = np.random.default_rng(seed=SEED)
 
-OUTDIR = f"{OUTDIRBASE}/{modeldir}/"
+OUTDIR = f"{OUTDIRBASE}/{outdir}/"
 
 os.makedirs(OUTDIR, exist_ok=True)
-
-def func_phi1_star(x, y, p1=0, p2=0):
-    return x**4 + y**4 + y**3 - 4*x*x*y + y*y + p1*x + p2*y
 
 sf = 1/2.54  # scale factor from [cm] to inches
 
@@ -102,12 +99,44 @@ print("inferred noise:\n", noise_parameter)
 ##  Plot the training history
 
 FIGNAME = "training_history"
-FIGSIZE = (8*sf, 12*sf)
+FIGSIZE = (8*sf, 16*sf)
 
-fig, axes = plt.subplots(3, 1, figsize=FIGSIZE)
+fig, axes = plt.subplots(4, 1, figsize=FIGSIZE)
+
+dt_hist = training_info['dt_hist']
+sigma_hist = training_info['sigma_hist']
+try:
+    if dt_hist is None or len(dt_hist) < len(sigma_hist):
+        print("Calculuating `dt_hist` to match length of `sigma_hist`")
+        dt_schedule = get_dt_schedule(
+            logged_args.get('dt_schedule', 'constant'), logged_args
+        )
+        dt_hist = np.array([dt_schedule(i) for i in range(len(sigma_hist))])
+except (RuntimeError, TypeError) as e:
+    print("Could not calculate `dt_hist` to match length of `sigma_hist`")
+    print(e)
+
 
 ax=axes[0]
-plot_loss_history(
+pl.plot_learning_rate_history(
+    training_info['learning_rate_hist'],
+    log=False, 
+    color='k',
+    ax=ax
+)
+ax.set_xlabel("")
+ax.set_title("Learning rate schedule")
+
+ax=axes[1]
+pl.plot_dt_history(
+    dt_hist,
+    ax=ax
+)
+ax.set_xlabel("")
+ax.set_title("Timestep schedule")
+
+ax=axes[2]
+pl.plot_loss_history(
     training_info['loss_hist_train'],
     training_info['loss_hist_valid'],
     startidx=startidx, log=logloss, 
@@ -119,25 +148,22 @@ plot_loss_history(
     ax=ax
 )
 ax.set_xlabel("")
+ax.set_title("Loss history")
 
-ax=axes[1]
-plot_sigma_history(
-    training_info['sigma_hist'],
+ax=axes[3]
+pl.plot_sigma_history(
+    sigma_hist,
     log=False, 
     sigma_true=truesigma,
+    sigma_true_legend_label=f'$\\sigma^*={truesigma:.3g}$',
     color='k',
     linewidth=2,
     marker=None,
     ax=ax
 )
-ax.set_xlabel("")
-
-ax=axes[2]
-plot_learning_rate_history(
-    training_info['learning_rate_hist'],
-    log=False, 
-    ax=ax
-)
+ax.set_xlabel("Epochs")
+ax.set_ylabel("$\\sigma$")
+ax.set_title("Noise parameter over training")
 
 plt.tight_layout()
 plt.savefig(f"{OUTDIR}/{FIGNAME}", bbox_inches='tight')
@@ -253,7 +279,7 @@ ax22.plot(
 )
 
 for ax in axes.flatten():
-    ax.legend(loc='lower right')
+    # ax.legend(loc='lower right')
     ax.axhline(0, 0, 1, color='k', alpha=0.5, linestyle='--', linewidth=1)
 
 for ax in [ax21, ax22]:

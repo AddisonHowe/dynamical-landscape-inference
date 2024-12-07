@@ -14,11 +14,14 @@
 #=============================================================================
 
 source .env
+source figures/.config
 
-sh figures/manuscript/pull_fig6_facs_training.sh $MESC_PROJ_PATH
+sh figures/manuscript/pull_fig6_facs_training.sh \
+    $MESC_PROJ_PATH $FIG67_PCA_SUBDIR $FIG67_SIGS_SUBDIR
 
 eval "$(conda shell.bash hook)"
 conda activate env
 
-python figures/manuscript/make_fig6_facs_training.py
-python figures/manuscript/make_fig6_facs_training_loss.py
+MODELDIR=$FIG67_MODEL
+python figures/manuscript/make_fig6_facs_training.py -m $MODELDIR
+python figures/manuscript/make_fig6_facs_training_loss.py -m $MODELDIR

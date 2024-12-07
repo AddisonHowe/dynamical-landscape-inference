@@ -15,11 +15,14 @@
 #=============================================================================
 
 source .env
+source figures/.config
 
-sh figures/manuscript/pull_fig7_facs_evaluation.sh $MESC_PROJ_PATH
+sh figures/manuscript/pull_fig7_facs_evaluation.sh \
+    $MESC_PROJ_PATH $FIG67_PCA_SUBDIR $FIG67_SIGS_SUBDIR
 
 eval "$(conda shell.bash hook)"
 conda activate env
 
-python figures/manuscript/make_fig7_facs_evaluation.py
-python figures/manuscript/make_fig7_facs_evaluation_2.py
+MODELDIR=$FIG67_MODEL
+python figures/manuscript/make_fig7_facs_evaluation.py -m $MODELDIR
+python figures/manuscript/make_fig7_facs_evaluation_2.py -m $MODELDIR

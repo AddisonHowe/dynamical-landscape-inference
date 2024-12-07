@@ -25,7 +25,7 @@ SEED = 23785258
 
 rng = np.random.default_rng(seed=SEED)
 
-MODELDIR = "data/trained_models/facs/model_facs_v3_dec1b_2dpca_v12b_20240719_005108"
+MODELDIR = "data/trained_models/facs/model_facs_dec1_v1_argset2_20241103_092114"
 DATDIR = "data/training_data/facs_v3/pca/dec1_fitonsubset/transition1_subset_epi_tr_ce_an_pc12"
 
 OUTDIR = "figures/out/fig_model_evaluation_out"

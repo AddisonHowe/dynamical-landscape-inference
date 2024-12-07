@@ -4,16 +4,19 @@ Generate plots used in Figure 3 of the accompanying manuscript.
 """
 
 import os
+import argparse
 import numpy as np
 import jax
 jax.config.update("jax_enable_x64", True)
+
 import matplotlib.pyplot as plt
 plt.style.use('figures/manuscript/styles/fig_3.mplstyle')
 import matplotlib.patches as patches
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
 from plnn.io import load_model_from_directory, load_model_training_metadata
-from plnn.pl import plot_landscape, plot_phi, plot_sigma_history, plot_validation_loss_history
+from plnn.pl import plot_landscape, plot_phi, plot_sigma_history
+from plnn.pl import plot_validation_loss_history
 from plnn.pl import CHIR_COLOR, FGF_COLOR
 from plnn.vectorfields import estimate_minima
 from plnn.helpers import get_phi1_fixed_points
@@ -21,10 +24,14 @@ from plnn.helpers import get_phi1_fixed_points
 from cont.binary_choice import get_binary_choice_curves
 from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-m', '--modeldir', type=str, required=True, 
+                    help="Name of trained model directory w/o prefix.")
+args = parser.parse_args()
 
 OUTDIR = "figures/manuscript/out/fig3_synthetic_training"
 SAVEPLOTS = True
-MODELDIR = "data/trained_models/plnn_synbindec/model_phi1_1a_v_mmd1_20240704_134102"
+MODELDIR = f"data/trained_models/plnn_synbindec/{args.modeldir}"
 SIGMA_TRUE = 0.1
 SEED = 123
 

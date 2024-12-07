@@ -4,6 +4,7 @@ Generate plots used in Figure 6 of the accompanying manuscript.
 """
 
 import os
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('figures/manuscript/styles/fig_6.mplstyle')
@@ -11,10 +12,15 @@ plt.style.use('figures/manuscript/styles/fig_6.mplstyle')
 import jax
 jax.config.update("jax_enable_x64", True)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-m', '--modeldir', type=str, required=True, 
+                    help="Name of trained model directory w/o prefix.")
+args = parser.parse_args()
 
-MODELDIR = "model_facs_v3_dec1b_2dpca_v12b_20240719_005108"
 
-DATDIR = f"data/trained_models/facs/{MODELDIR}/eval"
+MODELDIR = args.modeldir
+
+DATDIR = f"data/trained_models/facs/{MODELDIR}/testing/eval_facs_dec1_v1"
 
 OUTDIR = "figures/manuscript/out/fig6_facs_training"
 
@@ -46,22 +52,17 @@ CONDITION_NAMES = {
 }
 
 KEY_TO_CONDITION_SPLIT1 = {
-    'facs'    : {
-        'train'   : [0, 2, 4, 5, 6, 8, 10],
-        'valid' : [1, 3, 7, 9],
-        'test'    : [],
-    },
-    'facs_v2' : {
-        'train'   : [0, 2, 4, 5, 6, 8, 10],
-        'valid' : [1, 3, 7, 9],
-        'test'    : [],
-    },
-    'facs_v3' : {
+    'v1'    : {
         'train'   : [0, 2, 5, 6, 10],
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
     },
-    'facs_v4' : {
+    'v2' : {
+        'train'   : [0, 2, 5, 6, 10],
+        'valid' : [1, 3, 7, 9],
+        'test'    : [4, 8],
+    },
+    'v3' : {
         'train'   : [0, 2, 5, 6, 10],
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
@@ -69,22 +70,17 @@ KEY_TO_CONDITION_SPLIT1 = {
 }
 
 KEY_TO_CONDITION_SPLIT2 = {
-    'facs'    : {
-        'train'   : [2, 4, 5, 6, 8, 10],
-        'valid' : [1, 3, 7, 9],
-        'test'    : [],
-    },
-    'facs_v2' : {
-        'train'   : [2, 4, 5, 6, 8, 10],
-        'valid' : [1, 3, 7, 9],
-        'test'    : [],
-    },
-    'facs_v3' : {
+    'v1'    : {
         'train'   : [2, 5, 6, 10],
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
     },
-    'facs_v4' : {
+    'v2' : {
+        'train'   : [2, 5, 6, 10],
+        'valid' : [1, 3, 7, 9],
+        'test'    : [4, 8],
+    },
+    'v3' : {
         'train'   : [2, 5, 6, 10],
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
@@ -99,26 +95,23 @@ else:
     raise RuntimeError()
 
 
-if "facs_v2" in MODELDIR:
+if "v1" in MODELDIR:
     train_valid_test_conds = {
-        1: KEY_TO_CONDITION_SPLIT1['facs_v2'],
-        2: KEY_TO_CONDITION_SPLIT2['facs_v2'],
+        1: KEY_TO_CONDITION_SPLIT1['v1'],
+        2: KEY_TO_CONDITION_SPLIT2['v1'],
     }[DECISION_IDX]
-elif "facs_v3" in MODELDIR:
+elif "v2" in MODELDIR:
     train_valid_test_conds = {
-        1: KEY_TO_CONDITION_SPLIT1['facs_v3'],
-        2: KEY_TO_CONDITION_SPLIT2['facs_v3'],
+        1: KEY_TO_CONDITION_SPLIT1['v2'],
+        2: KEY_TO_CONDITION_SPLIT2['v2'],
     }[DECISION_IDX]
-elif "facs_v4" in MODELDIR:
+elif "v3" in MODELDIR:
     train_valid_test_conds = {
-        1: KEY_TO_CONDITION_SPLIT1['facs_v4'],
-        2: KEY_TO_CONDITION_SPLIT2['facs_v4'],
+        1: KEY_TO_CONDITION_SPLIT1['v3'],
+        2: KEY_TO_CONDITION_SPLIT2['v3'],
     }[DECISION_IDX]
-elif "facs" in MODELDIR:
-    train_valid_test_conds = {
-        1: KEY_TO_CONDITION_SPLIT1['facs'],
-        2: KEY_TO_CONDITION_SPLIT2['facs'],
-    }[DECISION_IDX]
+else:
+    raise RuntimeError("Cannot determine train/test/valid condition split.")
 
 
 DATASETS = {}

@@ -4,6 +4,7 @@ Generate plots used in Figure 6 of the accompanying manuscript.
 """
 
 import os
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('figures/manuscript/styles/fig_6.mplstyle')
@@ -20,11 +21,16 @@ from plnn.pl import CHIR_COLOR, FGF_COLOR
 
 from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-m', '--modeldir', type=str, required=True, 
+                    help="Name of trained model directory w/o prefix.")
+args = parser.parse_args()
+
 
 SEED = 123816453
 rng = np.random.default_rng(seed=SEED)
 
-MODELDIR = "data/trained_models/facs/model_facs_v3_dec1b_2dpca_v12b_20240719_005108"
+MODELDIR = f"data/trained_models/facs/{args.modeldir}"
 DATDIR = "data/facs/facs_dec1_v1"
 
 OUTDIR = "figures/manuscript/out/fig6_facs_training"
@@ -37,6 +43,8 @@ sf = 1/2.54  # scale factor from [cm] to inches
 MINMARKERSIZE = 1
 MINMARKER = '.'
 MINCOLOR = 'y'
+
+SCATTER_COLOR = 'cyan'
 
 INSET_SCALE = "40%"
 N_EST_MIN = 100
@@ -141,10 +149,10 @@ ax.set_xlabel("")
 ax.set_ylabel("")
 ax.set_title("")
 
-ax.set_yticks([0.2, 0.4, 0.8], [0.2, 0.4, 0.8])
+# ax.set_yticks([0.2, 0.4, 0.8], [0.2, 0.4, 0.8])
 # ax.get_yaxis().get_major_formatter().labelOnlyBase = False
 # ax.set_yticks([0.2, 0.4, 0.8], minor=True)
-ax.set_yticks([], minor=True)
+# ax.set_yticks([], minor=True)
 # ax.get_yaxis().set_major_formatter(ticker.ScalarFormatter())
 # ax.get_yaxis().set_minor_formatter(ticker.ScalarFormatter())
 
@@ -444,7 +452,7 @@ for cond_name in CONDITIONS:
 
         ax.plot(
             xs[:,0], xs[:,1], '.',
-            color='k',
+            color=SCATTER_COLOR,
             markersize=1,
             rasterized=True,
             alpha=0.3
