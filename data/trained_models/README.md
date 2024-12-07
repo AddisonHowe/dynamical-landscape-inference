@@ -4,12 +4,15 @@
 
 <!-- REPLACEMENT START KEY [PLNN_SYNBINDEC] -->
 - Data source: `data_phi1_1a`
+	- [run_phi1_1a_v_klv1](../model_training_args/plnn_synbindec/run_phi1_1a_v_klv1.tsv)
+		- [model_phi1_1a_v_klv1_20241205_183247](./plnn_synbindec/model_phi1_1a_v_klv1_20241205_183247)
 	- [run_phi1_1a_v_mmd1](../model_training_args/plnn_synbindec/run_phi1_1a_v_mmd1.tsv)
 		- [model_phi1_1a_v_mmd1_20240522_185135](./plnn_synbindec/model_phi1_1a_v_mmd1_20240522_185135)
 		- [model_phi1_1a_v_mmd1_20240627_143649](./plnn_synbindec/model_phi1_1a_v_mmd1_20240627_143649)
 		- [model_phi1_1a_v_mmd1_20240627_143655](./plnn_synbindec/model_phi1_1a_v_mmd1_20240627_143655)
 		- [model_phi1_1a_v_mmd1_20240627_193208](./plnn_synbindec/model_phi1_1a_v_mmd1_20240627_193208)
 		- [model_phi1_1a_v_mmd1_20240704_134102](./plnn_synbindec/model_phi1_1a_v_mmd1_20240704_134102)
+		- [model_phi1_1a_v_mmd1_20241205_124553](./plnn_synbindec/model_phi1_1a_v_mmd1_20241205_124553)
 - Data source: `data_phi1_1b`
 	- [run_phi1_1b_v_mmd1](../model_training_args/plnn_synbindec/run_phi1_1b_v_mmd1.tsv)
 		- [model_phi1_1b_v_mmd1_20240802_132858](./plnn_synbindec/model_phi1_1b_v_mmd1_20240802_132858)
@@ -135,17 +138,23 @@
 
 <!-- REPLACEMENT START KEY [PLNN_QUADRATIC] -->
 - Data source: `data_phiq_1a`
+	- [run_phiq_1a_v_klv1](../model_training_args/plnn_quadratic/run_phiq_1a_v_klv1.tsv)
+		- [model_phiq_1a_v_klv1_20241205_183101](./plnn_quadratic/model_phiq_1a_v_klv1_20241205_183101)
+	- [run_phiq_1a_v_klv2](../model_training_args/plnn_quadratic/run_phiq_1a_v_klv2.tsv)
+		- [model_phiq_1a_v_klv2_20241205_183101](./plnn_quadratic/model_phiq_1a_v_klv2_20241205_183101)
 	- [run_phiq_1a_v_mmd1](../model_training_args/plnn_quadratic/run_phiq_1a_v_mmd1.tsv)
 		- [model_phiq_1a_v_mmd1_20241012_121409](./plnn_quadratic/model_phiq_1a_v_mmd1_20241012_121409)
 		- [model_phiq_1a_v_mmd1_20241012_121412](./plnn_quadratic/model_phiq_1a_v_mmd1_20241012_121412)
 		- [model_phiq_1a_v_mmd1_20241012_121415](./plnn_quadratic/model_phiq_1a_v_mmd1_20241012_121415)
 		- [model_phiq_1a_v_mmd1_20241012_121422](./plnn_quadratic/model_phiq_1a_v_mmd1_20241012_121422)
+		- [model_phiq_1a_v_mmd1_20241205_182027](./plnn_quadratic/model_phiq_1a_v_mmd1_20241205_182027)
 - Data source: `data_phiq_2a`
 	- [run_phiq_2a_v_mmd1](../model_training_args/plnn_quadratic/run_phiq_2a_v_mmd1.tsv)
 		- [model_phiq_2a_v_mmd1_20241012_123855](./plnn_quadratic/model_phiq_2a_v_mmd1_20241012_123855)
 		- [model_phiq_2a_v_mmd1_20241012_123859](./plnn_quadratic/model_phiq_2a_v_mmd1_20241012_123859)
 		- [model_phiq_2a_v_mmd1_20241012_123903](./plnn_quadratic/model_phiq_2a_v_mmd1_20241012_123903)
 		- [model_phiq_2a_v_mmd1_20241012_123907](./plnn_quadratic/model_phiq_2a_v_mmd1_20241012_123907)
+		- [model_phiq_2a_v_mmd1_20241205_182027](./plnn_quadratic/model_phiq_2a_v_mmd1_20241205_182027)
 
 <!-- REPLACEMENT END KEY [PLNN_QUADRATIC] -->
 
@@ -176,10 +185,13 @@
 - Data source: `data_phiq_1a`
 	- [run_algphiq_1a_v_kl1](../model_training_args/alg_quadratic/run_algphiq_1a_v_kl1.tsv)
 		- [model_algphiq_1a_v_kl1_20241015_173833](./alg_quadratic/model_algphiq_1a_v_kl1_20241015_173833)
+		- [model_algphiq_1a_v_kl1_20241205_184216](./alg_quadratic/model_algphiq_1a_v_kl1_20241205_184216)
 	- [run_algphiq_1a_v_klv21](../model_training_args/alg_quadratic/run_algphiq_1a_v_klv21.tsv)
 		- [model_algphiq_1a_v_klv21_20241015_174842](./alg_quadratic/model_algphiq_1a_v_klv21_20241015_174842)
+		- [model_algphiq_1a_v_klv21_20241205_184311](./alg_quadratic/model_algphiq_1a_v_klv21_20241205_184311)
 	- [run_algphiq_1a_v_mmd1](../model_training_args/alg_quadratic/run_algphiq_1a_v_mmd1.tsv)
 		- [model_algphiq_1a_v_mmd1_20241015_173508](./alg_quadratic/model_algphiq_1a_v_mmd1_20241015_173508)
+		- [model_algphiq_1a_v_mmd1_20241205_183501](./alg_quadratic/model_algphiq_1a_v_mmd1_20241205_183501)
 	- [run_algphiq_1a_v_mmd2](../model_training_args/alg_quadratic/run_algphiq_1a_v_mmd2.tsv)
 		- [model_algphiq_1a_v_mmd2_20241015_173508](./alg_quadratic/model_algphiq_1a_v_mmd2_20241015_173508)
 	- [run_algphiq_1a_v_mmd3](../model_training_args/alg_quadratic/run_algphiq_1a_v_mmd3.tsv)
