@@ -18,6 +18,7 @@ datdirs=(
     "facs_dec1_v1"
     "facs_dec1_v2"
     "facs_dec1_v3"
+    "facs_dec1_v4"
     "facs_dec2_v1"
     "facs_dec2_v2"
     "facs_dec2_v3"
