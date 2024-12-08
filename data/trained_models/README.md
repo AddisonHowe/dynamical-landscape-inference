@@ -215,21 +215,16 @@
 		- [model_facs_dec1_v1_argset1_20241103_091522](./facs/model_facs_dec1_v1_argset1_20241103_091522)
 	- [run_facs_dec1_v1_argset2](../model_training_args/facs/run_facs_dec1_v1_argset2.tsv)
 		- [model_facs_dec1_v1_argset2_20241103_092114](./facs/model_facs_dec1_v1_argset2_20241103_092114)
-- Data source: `facs_dec1_v2`
-	- [run_facs_dec1_v2_argset1](../model_training_args/facs/run_facs_dec1_v2_argset1.tsv)
-		- [model_facs_dec1_v2_argset1_20241030_191743](./facs/model_facs_dec1_v2_argset1_20241030_191743)
-	- [run_facs_dec1_v2_argset2](../model_training_args/facs/run_facs_dec1_v2_argset2.tsv)
-		- [model_facs_dec1_v2_argset2_20241031_141541](./facs/model_facs_dec1_v2_argset2_20241031_141541)
-	- [run_facs_dec1_v2_argset3](../model_training_args/facs/run_facs_dec1_v2_argset3.tsv)
-		- [model_facs_dec1_v2_argset3_20241031_143817](./facs/model_facs_dec1_v2_argset3_20241031_143817)
-- Data source: `facs_dec1_v3`
-	- [run_facs_dec1_v3_argset1](../model_training_args/facs/run_facs_dec1_v3_argset1.tsv)
-		- [model_facs_dec1_v3_argset1_20241101_102458](./facs/model_facs_dec1_v3_argset1_20241101_102458)
-	- [run_facs_dec1_v3_argset2](../model_training_args/facs/run_facs_dec1_v3_argset2.tsv)
-		- [model_facs_dec1_v3_argset2_20241103_092253](./facs/model_facs_dec1_v3_argset2_20241103_092253)
+- Data source: `facs_dec1_v4`
+	- [run_facs_dec1_v4_argset1](../model_training_args/facs/run_facs_dec1_v4_argset1.tsv)
+		- [model_facs_dec1_v4_argset1_20241208_112525](./facs/model_facs_dec1_v4_argset1_20241208_112525)
 - Data source: `facs_dec2_v1`
 	- [run_facs_dec2_v1_argset1](../model_training_args/facs/run_facs_dec2_v1_argset1.tsv)
 		- [model_facs_dec2_v1_argset1_20241017_113100](./facs/model_facs_dec2_v1_argset1_20241017_113100)
+	- [run_facs_dec2_v1_argset2](../model_training_args/facs/run_facs_dec2_v1_argset2.tsv)
+		- [model_facs_dec2_v1_argset2_20241207_171612](./facs/model_facs_dec2_v1_argset2_20241207_171612)
+	- [run_facs_dec2_v1_argset3](../model_training_args/facs/run_facs_dec2_v1_argset3.tsv)
+		- [model_facs_dec2_v1_argset3_20241208_112525](./facs/model_facs_dec2_v1_argset3_20241208_112525)
 - Data source: `facs_dec2_v2`
 	- [run_facs_dec2_v2_argset1](../model_training_args/facs/run_facs_dec2_v2_argset1.tsv)
 		- [model_facs_dec2_v2_argset1_20241031_122042](./facs/model_facs_dec2_v2_argset1_20241031_122042)
