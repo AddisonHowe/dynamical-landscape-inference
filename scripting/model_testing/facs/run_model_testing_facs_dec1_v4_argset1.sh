@@ -18,7 +18,7 @@ key_list="test train valid"
 dt0_list="0.025 0.0125 -1"
 
 basedir=data/trained_models/facs
-modeldirs=$(ls -d $basedir/model_facs_dec1_v4_argset1_*)
+modeldirs=$(ls -d $basedir/model_facs_dec1_v4_argset1*)
 
 for modeldir in ${modeldirs}; do
     modelname=$(basename $modeldir)

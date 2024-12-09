@@ -13,6 +13,7 @@
 		- [model_phi1_1a_v_mmd1_20240627_193208](./plnn_synbindec/model_phi1_1a_v_mmd1_20240627_193208)
 		- [model_phi1_1a_v_mmd1_20240704_134102](./plnn_synbindec/model_phi1_1a_v_mmd1_20240704_134102)
 		- [model_phi1_1a_v_mmd1_20241205_124553](./plnn_synbindec/model_phi1_1a_v_mmd1_20241205_124553)
+		- [model_phi1_1a_v_mmd1_20241208_120718](./plnn_synbindec/model_phi1_1a_v_mmd1_20241208_120718)
 - Data source: `data_phi1_1b`
 	- [run_phi1_1b_v_mmd1](../model_training_args/plnn_synbindec/run_phi1_1b_v_mmd1.tsv)
 		- [model_phi1_1b_v_mmd1_20240802_132858](./plnn_synbindec/model_phi1_1b_v_mmd1_20240802_132858)
@@ -118,6 +119,7 @@
 		- [model_phi2_1a_v_mmd1_20241012_114603](./plnn_synbindec/model_phi2_1a_v_mmd1_20241012_114603)
 		- [model_phi2_1a_v_mmd1_20241012_114604](./plnn_synbindec/model_phi2_1a_v_mmd1_20241012_114604)
 		- [model_phi2_1a_v_mmd1_20241012_114606](./plnn_synbindec/model_phi2_1a_v_mmd1_20241012_114606)
+		- [model_phi2_1a_v_mmd1_20241208_120842](./plnn_synbindec/model_phi2_1a_v_mmd1_20241208_120842)
 - Data source: `data_phi2_1b`
 	- [run_phi2_1b_v_mmd1](../model_training_args/plnn_synbindec/run_phi2_1b_v_mmd1.tsv)
 		- [model_phi2_1b_v_mmd1_20241012_114558](./plnn_synbindec/model_phi2_1b_v_mmd1_20241012_114558)
@@ -218,6 +220,12 @@
 - Data source: `facs_dec1_v4`
 	- [run_facs_dec1_v4_argset1](../model_training_args/facs/run_facs_dec1_v4_argset1.tsv)
 		- [model_facs_dec1_v4_argset1_20241208_112525](./facs/model_facs_dec1_v4_argset1_20241208_112525)
+		- [model_facs_dec1_v4_argset1_20241208_151931](./facs/model_facs_dec1_v4_argset1_20241208_151931)
+		- [model_facs_dec1_v4_argset1_20241208_151949](./facs/model_facs_dec1_v4_argset1_20241208_151949)
+		- [model_facs_dec1_v4_argset1_20241208_152029](./facs/model_facs_dec1_v4_argset1_20241208_152029)
+	- [run_facs_dec1_v4_argset2](../model_training_args/facs/run_facs_dec1_v4_argset2.tsv)
+		- [model_facs_dec1_v4_argset2_20241208_152847](./facs/model_facs_dec1_v4_argset2_20241208_152847)
+		- [model_facs_dec1_v4_argset2_20241208_152910](./facs/model_facs_dec1_v4_argset2_20241208_152910)
 - Data source: `facs_dec2_v1`
 	- [run_facs_dec2_v1_argset1](../model_training_args/facs/run_facs_dec2_v1_argset1.tsv)
 		- [model_facs_dec2_v1_argset1_20241017_113100](./facs/model_facs_dec2_v1_argset1_20241017_113100)
@@ -225,6 +233,12 @@
 		- [model_facs_dec2_v1_argset2_20241207_171612](./facs/model_facs_dec2_v1_argset2_20241207_171612)
 	- [run_facs_dec2_v1_argset3](../model_training_args/facs/run_facs_dec2_v1_argset3.tsv)
 		- [model_facs_dec2_v1_argset3_20241208_112525](./facs/model_facs_dec2_v1_argset3_20241208_112525)
+		- [model_facs_dec2_v1_argset3_20241208_151931](./facs/model_facs_dec2_v1_argset3_20241208_151931)
+		- [model_facs_dec2_v1_argset3_20241208_151954](./facs/model_facs_dec2_v1_argset3_20241208_151954)
+		- [model_facs_dec2_v1_argset3_20241208_152033](./facs/model_facs_dec2_v1_argset3_20241208_152033)
+	- [run_facs_dec2_v1_argset4](../model_training_args/facs/run_facs_dec2_v1_argset4.tsv)
+		- [model_facs_dec2_v1_argset4_20241208_152839](./facs/model_facs_dec2_v1_argset4_20241208_152839)
+		- [model_facs_dec2_v1_argset4_20241208_153001](./facs/model_facs_dec2_v1_argset4_20241208_153001)
 - Data source: `facs_dec2_v2`
 	- [run_facs_dec2_v2_argset1](../model_training_args/facs/run_facs_dec2_v2_argset1.tsv)
 		- [model_facs_dec2_v2_argset1_20241031_122042](./facs/model_facs_dec2_v2_argset1_20241031_122042)
