@@ -16,7 +16,7 @@ import jax.random as jrandom
 from plnn.dataset import get_dataloaders
 from plnn.io import load_model_from_directory, load_model_training_metadata
 from plnn.vectorfields import estimate_minima
-from plnn.pl import plot_phi, plot_loss_history
+from plnn.pl import plot_phi, plot_validation_loss_history
 from plnn.pl import CHIR_COLOR, FGF_COLOR
 
 from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
@@ -31,7 +31,7 @@ SEED = 123816453
 rng = np.random.default_rng(seed=SEED)
 
 MODELDIR = f"data/trained_models/facs/{args.modeldir}"
-DATDIR = "data/facs/facs_dec1_v1"
+DATDIR = "data/facs/facs_dec1_v4"
 
 OUTDIR = "figures/manuscript/out/fig6_facs_training"
 SAVEPLOTS = True
@@ -40,7 +40,7 @@ os.makedirs(OUTDIR, exist_ok=True)
 
 sf = 1/2.54  # scale factor from [cm] to inches
 
-MINMARKERSIZE = 1
+MINMARKERSIZE = 3
 MINMARKER = '.'
 MINCOLOR = 'y'
 
@@ -134,15 +134,11 @@ FIGNAME = "loss_history"
 FIGSIZE = (6*sf, 3*sf)
 
 fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout='constrained')
-plot_loss_history(
-    training_info['loss_hist_train'],
+plot_validation_loss_history(
     training_info['loss_hist_valid'],
     log=True,
-    color_train='grey', color_valid='k',
-    marker_train=None, marker_valid=None,
-    linestyle_train='-', linestyle_valid='-',
-    linewidth_train=1, linewidth_valid=1,
-    alpha_train=0.8, alpha_valid=1.0,
+    color='k',
+    linestyle='-', alpha=1, marker=None,
     ax=ax
 )
 ax.set_xlabel("")
@@ -167,7 +163,7 @@ FIGNAME = "phi_inferred_main"
 FIGSIZE = (4.2*sf, 4*sf)
 
 SIG_TO_PLOT = [0.0, 1.0]
-PLOT_XLIMS = [-6, 5]
+PLOT_XLIMS = [-6, 6]
 PLOT_YLIMS = [-3, 5]
 
 res = 50   # resolution

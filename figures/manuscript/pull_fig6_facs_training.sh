@@ -22,7 +22,7 @@ mkdir -p $outdir
 # Copy images from PCA directory
 datdir=$basedir/${PCA_SUBDIR}/images/pc1pc2
 
-timepoints=(2.0 2.5 3.0 3.5 4.0)
+timepoints=(2.0 2.5 3.0 3.5)
 conditions=(
     "NO CHIR"
     "CHIR 2-3"
@@ -53,5 +53,8 @@ cp $basedir/${SIGS_SUBDIR}/"eff_signal_cond_CHIR 2-5.pdf" $outdir
 cp $basedir/${PCA_SUBDIR}/images/"pca_decision_1_NO CHIR_histograms".pdf $outdir
 cp $basedir/${PCA_SUBDIR}/images/"pca_decision_1_CHIR 2-3_histograms".pdf $outdir
 cp $basedir/${PCA_SUBDIR}/images/"pca_decision_1_CHIR 2-5_histograms".pdf $outdir
+
+cp $basedir/${PCA_SUBDIR}/images/pca_screeplot.pdf $outdir
+cp $basedir/${PCA_SUBDIR}/images/pca_loadings.pdf $outdir
 
 cp $basedir/2_clustering/images/legend.pdf $outdir

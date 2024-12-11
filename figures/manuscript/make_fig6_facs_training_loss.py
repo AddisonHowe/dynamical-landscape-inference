@@ -20,7 +20,7 @@ args = parser.parse_args()
 
 MODELDIR = args.modeldir
 
-DATDIR = f"data/trained_models/facs/{MODELDIR}/testing/eval_facs_dec1_v1"
+DATDIR = f"data/trained_models/facs/{MODELDIR}/testing/eval_facs_dec1_v4"
 
 OUTDIR = "figures/manuscript/out/fig6_facs_training"
 
@@ -67,6 +67,11 @@ KEY_TO_CONDITION_SPLIT1 = {
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
     },
+    'v4' : {
+        'train'   : [0, 2, 5, 6, 10],
+        'valid' : [1, 3, 7, 9],
+        'test'    : [4, 8],
+    },
 }
 
 KEY_TO_CONDITION_SPLIT2 = {
@@ -81,6 +86,11 @@ KEY_TO_CONDITION_SPLIT2 = {
         'test'    : [4, 8],
     },
     'v3' : {
+        'train'   : [2, 5, 6, 10],
+        'valid' : [1, 3, 7, 9],
+        'test'    : [4, 8],
+    },
+    'v4' : {
         'train'   : [2, 5, 6, 10],
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
@@ -109,6 +119,11 @@ elif "v3" in MODELDIR:
     train_valid_test_conds = {
         1: KEY_TO_CONDITION_SPLIT1['v3'],
         2: KEY_TO_CONDITION_SPLIT2['v3'],
+    }[DECISION_IDX]
+elif "v4" in MODELDIR:
+    train_valid_test_conds = {
+        1: KEY_TO_CONDITION_SPLIT1['v4'],
+        2: KEY_TO_CONDITION_SPLIT2['v4'],
     }[DECISION_IDX]
 else:
     raise RuntimeError("Cannot determine train/test/valid condition split.")

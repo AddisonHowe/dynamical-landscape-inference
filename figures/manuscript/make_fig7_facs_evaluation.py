@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 MODELDIR = args.modeldir
 
-DATDIR = f"data/trained_models/facs/{MODELDIR}/testing/eval_facs_dec1_v1"
+DATDIR = f"data/trained_models/facs/{MODELDIR}/testing/eval_facs_dec1_v4"
 
 OUTDIR = "figures/manuscript/out/fig7_facs_evaluation"
 
@@ -66,6 +66,11 @@ KEY_TO_CONDITION_SPLIT1 = {
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
     },
+    'v4' : {
+        'train'   : [0, 2, 5, 6, 10],
+        'valid' : [1, 3, 7, 9],
+        'test'    : [4, 8],
+    },
 }
 
 KEY_TO_CONDITION_SPLIT2 = {
@@ -80,6 +85,11 @@ KEY_TO_CONDITION_SPLIT2 = {
         'test'    : [4, 8],
     },
     'v3' : {
+        'train'   : [2, 5, 6, 10],
+        'valid' : [1, 3, 7, 9],
+        'test'    : [4, 8],
+    },
+    'v4' : {
         'train'   : [2, 5, 6, 10],
         'valid' : [1, 3, 7, 9],
         'test'    : [4, 8],
@@ -109,6 +119,11 @@ elif "v3" in MODELDIR:
         1: KEY_TO_CONDITION_SPLIT1['v3'],
         2: KEY_TO_CONDITION_SPLIT2['v3'],
     }[DECISION_IDX]
+elif "v4" in MODELDIR:
+    train_valid_test_conds = {
+        1: KEY_TO_CONDITION_SPLIT1['v4'],
+        2: KEY_TO_CONDITION_SPLIT2['v4'],
+    }[DECISION_IDX]
 else:
     raise RuntimeError("Cannot determine train/test/valid condition split.")
 
@@ -137,7 +152,8 @@ for dataset_key in KEY_LIST:
         nconds, ndata_per_cond, nresamps, nreps = losses.shape
 
         timepoints = np.sort(np.unique(times))
-        timepoints += 2 + (timepoints[1] - timepoints[0]) / 2
+        t_int = timepoints[1] - timepoints[0]
+        timepoints += 2 + t_int / 2
 
         for condidx in range(nconds):
             fig, ax = plt.subplots(1, 1, figsize=figsize)
@@ -166,6 +182,10 @@ for dataset_key in KEY_LIST:
         times = dataset['times']
         nconds, ndata_per_cond, nresamps, nreps = losses.shape
 
+        timepoints = np.sort(np.unique(times))
+        t_int = timepoints[1] - timepoints[0]
+        timepoints += 2 + t_int / 2
+
         fig, ax = plt.subplots(1, 1, figsize=figsize, layout='constrained')
         legend_handles = []
         legend_labels = []
@@ -189,8 +209,12 @@ for dataset_key in KEY_LIST:
                 linestyle="None", 
                 color=l.get_color()
             )
-
-        ax.set_xlim(2, 5)
+        
+        ax.set_xlim(timepoints.min()-t_int/2, timepoints.max()+t_int/2)
+        ax.set_xticks(
+            np.arange(timepoints.min()-t_int/2, timepoints.max()+t_int, t_int)
+        )
+        
         ax.legend(
             legend_handles, legend_labels, 
             bbox_to_anchor=(1.05, 1), loc='upper left',
@@ -201,6 +225,10 @@ for dataset_key in KEY_LIST:
         
         figname = f"loss_comparison_{dataset_key}_dt_{dt0}"
         plt.savefig(f"{OUTDIR}/{figname}.pdf", transparent=True)
+
+        if dt0 == DT0_LIST[-1]:
+            figname = f"loss_comparison_{dataset_key}_dt_min"
+            plt.savefig(f"{OUTDIR}/{figname}.pdf", transparent=True)
         plt.close()
             
 
@@ -211,6 +239,10 @@ for dataset_key in KEY_LIST:
     losses = dataset['losses']
     times = dataset['times']
     nconds, ndata_per_cond, nresamps, nreps = losses.shape    
+
+    timepoints = np.sort(np.unique(times))
+    t_int = timepoints[1] - timepoints[0]
+    timepoints += 2 + t_int / 2
 
     for condidx in range(nconds):
         fig, ax = plt.subplots(1, 1, figsize=figsize, layout='constrained')

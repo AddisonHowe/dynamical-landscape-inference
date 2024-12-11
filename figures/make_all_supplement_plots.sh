@@ -21,6 +21,12 @@ runs=(
     run_make_figure_phi2_fixed_point_comparison
     run_make_figure_phi1_fixed_point_history
     run_make_figure_phi2_fixed_point_history
+    run_make_figure_dec1_dimred
+    run_make_figure_dec2_dimred
+    run_make_figure_dec1_training
+    run_make_figure_dec2_training
+    run_make_figure_dec1_results
+    run_make_figure_dec2_results
 )
 
 for runname in "${runs[@]}"; do

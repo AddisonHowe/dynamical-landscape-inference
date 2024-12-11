@@ -268,6 +268,7 @@ ax22.plot(
 )
 
 for ax in axes.flatten():
+    ax.legend()
     # ax.legend(loc='lower right')
     ax.axhline(0, 0, 1, color='k', alpha=0.5, linestyle='--', linewidth=1)
 

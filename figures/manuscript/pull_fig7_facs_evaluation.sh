@@ -22,7 +22,7 @@ mkdir -p $outdir
 # Copy images from PCA directory
 datdir=$basedir/${PCA_SUBDIR}/images/pc1pc2
 
-timepoints=(2.0 2.5 3.0 3.5 4.0)
+timepoints=(2.0 2.5 3.0 3.5)
 conditions=(
     "CHIR 2-4"
     "CHIR 2-5 FGF 2-4"

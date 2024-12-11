@@ -55,7 +55,7 @@ def get_marker_edge_width(marker):
 FIGNAME1 = "phi1_heatmap_untilted"
 FIGSIZE1 = (5*sf, 5*sf)
 FIGNAME2 = "phi1_landscape_untilted"
-FIGSIZE2 = (6*sf, 5.8*sf)
+FIGSIZE2 = (6.8*sf, 6.5*sf)
 
 r = 3       # box radius
 res = 50   # resolution
@@ -126,7 +126,7 @@ for fp, fp_type, fp_color in zip(fps[0], fp_types[0], fp_colors[0]):
         fp[0], fp[1], 0,
         color=fp_color, 
         marker=marker,
-        markersize=3,
+        markersize=5,
         markeredgecolor='w' if marker == 'o' else 'r',
         markeredgewidth=0.2 if marker == 'o' else 0.5,
         zorder=10,
@@ -281,7 +281,7 @@ for i, (p, label_number) in enumerate(PARAMS_PHI1):
             fp[0], fp[1],
             color=fp_color, 
             marker=marker,
-            markersize=3,
+            markersize=4,
             markeredgecolor='w',
             markeredgewidth=get_marker_edge_width(marker),
         )

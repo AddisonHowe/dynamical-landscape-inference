@@ -250,7 +250,8 @@ for i in tqdm.trange(min(len(loss_hist), SHORTSTOP), disable=False):
         )
         loss_better = vloss < best_loss
         # NOTE: Might cause issue if model saved periodically, regardless of vloss
-        assert loss_better, "Loss did not decrease!"
+        if not loss_better:
+            print(f"Warning: at epoch {idx}, model saved w/o decrease in loss.")
         # print(f"Loaded model {fpath}", f"{vloss:.5g} < {best_loss:.5g}", loss_better)
         best_loss = vloss
         results['epochs'].append(idx)
