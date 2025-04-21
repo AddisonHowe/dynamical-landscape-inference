@@ -250,6 +250,20 @@ sh scripting/autofig/plnn_quadratic/generate_ai_files_from_template.sh
 sh scripting/autofig/plnn_synbindec/generate_ai_files_from_template.sh
 ```
 
+## Distorted landscapes
+By transforming the synthetic data generated above, we can produce training data that corresponds to observing 2-dimensional gradient dynamics within a curved submanifold of $\mathbb{R}^3$.
+The datasets located in `data/training_data/distortions/paraboloids/` correspond to datasets located at `datat/training_data`.
+The values stored in the file `xs.npy` in the original datasets are treated as $(u,v)$ points, and we transform these points into $(x,y)$ values using the following transformation:
+$$
+\begin{aligned}
+    x &= \sinh\left(\sqrt{\frac{2}{\kappa_1}} x\right) + \sinh\left(\sqrt{\frac{2}{\kappa_2}} y\right) \\
+    y &= \sinh\left(\sqrt{\frac{2}{\kappa_1}} x\right) - \sinh\left(\sqrt{\frac{2}{\kappa_2}} y\right).
+\end{aligned}
+$$
+This transformation corresponds to a parameterization of the hyperbolic paraboloid, or saddle, $z=h(x,y)=\frac{1}{2}\kappa_1 x^2 - \frac{1}{2}\kappa_2 y^2$.
+In the $(u,v)$ space, the dynamics are derived from the gradient of a potential.
+The observed data, however, are constructed from the projection of the transformed $(x,y,z)$ points onto the $(x,y)$ plane, thereby introducing a distortion due to the curvature of the surface.
+
 # Figure generation
 The figures in the manuscript and supplement can be reproduced using the scripts available in the `figures/` directory.
 In `figures/manuscript/` there are a number of python scripts that generate the individual plots appearing in the main figures of the manuscript.
