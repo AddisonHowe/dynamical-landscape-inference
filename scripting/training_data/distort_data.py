@@ -11,6 +11,7 @@ Usage:
 import argparse
 import os
 import numpy as np
+import shutil
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--indir', type=str, required=True)
@@ -29,27 +30,27 @@ print(f"kappa1: {k1:.5g}")
 print(f"kappa2: {k2:.5g}")
 print(f"Saving data to output directory '{outdir}'")
 
-os.makedirs(outdir, exist_ok=True)
+# Copy input directory
+shutil.copytree(datdir, outdir, dirs_exist_ok=True)
 
 SUBDIRS = ["testing", "training", "validation"]
 
-def f(xs, k1, k2):
-    x, y = xs[...,0], xs[...,1]
-    t1 = np.arcsinh(np.sqrt(k1/2) * x)
-    t2 = np.arcsinh(np.sqrt(k2/2) * y)
-    u = t1 + t2
-    v = t1 - t2
-    ys = np.zeros_like(xs)
-    ys[...,0] = u
-    ys[...,1] = v
-    return ys
+def f(uvs, k1, k2):
+    u, v = uvs[...,0], uvs[...,1]
+    x = np.sqrt(2 / k1) * np.sinh((u + v) / 2)
+    y = np.sqrt(2 / k2) * np.sinh((u - v) / 2)
+    xys = np.zeros_like(uvs)
+    xys[...,0] = x
+    xys[...,1] = y
+    return xys
+
 
 for subdir in SUBDIRS:
-    simdir_list = os.listdir(f"{datdir}/{subdir}")
+    simdir_list = os.listdir(f"{outdir}/{subdir}")
     simdir_list = [d for d in simdir_list if d.startswith("sim")]
     
     for simdir in simdir_list:
-        fpath = f"{datdir}/{subdir}/{simdir}/xs.npy"
+        fpath = f"{outdir}/{subdir}/{simdir}/xs.npy"
         xs = np.load(fpath)
         ys = f(xs, k1, k2)
         np.save(fpath, ys)
