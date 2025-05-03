@@ -19,13 +19,14 @@ function copy_and_distort_data() {
     name=$2
     k1=$3
     k2=$4
+    transform=$5
     i=${datdir}/${indata}
     o=${outdir}/${indata}_${name}
     mkdir -p $o
     cp -r ${i}/* $o
     printf "kappa1\t${k1}\nkappa2\t${k2}\n" > ${o}/distortion_parameters.tsv
     python scripting/training_data/distort_data.py -i $o -o $o \
-        -k1 "${k1}" -k2 "${k2}"
+        -k1 "${k1}" -k2 "${k2}" -t ${transform}
 }
 
 # Generate data: data_phi1_4a_distortion1
@@ -33,25 +34,59 @@ indata=data_phi1_4a
 name=distortion1
 k1=1.0
 k2=4.0
-copy_and_distort_data $indata $name $k1 $k2
+transform=v1
+copy_and_distort_data $indata $name $k1 $k2 $transform
 
 # Generate data: data_phi1_4a_distortion2
 indata=data_phi1_4a
 name=distortion2
 k1=1.0
 k2=16.0
-copy_and_distort_data $indata $name $k1 $k2
+transform=v1
+copy_and_distort_data $indata $name $k1 $k2 $transform
 
 # Generate data: data_phi1_4a_distortion3
 indata=data_phi1_4a
 name=distortion3
 k1=4.0
 k2=1.0
-copy_and_distort_data $indata $name $k1 $k2
+transform=v1
+copy_and_distort_data $indata $name $k1 $k2 $transform
 
 # Generate data: data_phi1_4a_distortion4
 indata=data_phi1_4a
 name=distortion4
 k1=16.0
 k2=1.0
-copy_and_distort_data $indata $name $k1 $k2
+transform=v1
+copy_and_distort_data $indata $name $k1 $k2 $transform
+
+
+# Generate data: data_phi1_4a_distortionv2_1
+indata=data_phi1_4a
+name=distortion_v2_1
+k1=1.0
+k2=4.0
+transform=v2
+copy_and_distort_data $indata $name $k1 $k2 $transform
+
+indata=data_phi1_4a
+name=distortion_v2_2
+k1=1.0
+k2=16.0
+transform=v2
+copy_and_distort_data $indata $name $k1 $k2 $transform
+
+indata=data_phi1_4a
+name=distortion_v2_3
+k1=4.0
+k2=1.0
+transform=v2
+copy_and_distort_data $indata $name $k1 $k2 $transform
+
+indata=data_phi1_4a
+name=distortion_v2_4
+k1=16.0
+k2=1.0
+transform=v2
+copy_and_distort_data $indata $name $k1 $k2 $transform

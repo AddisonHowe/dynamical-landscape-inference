@@ -44,3 +44,8 @@ echo Running run_make_fig7_facs_evaluation.sh
 echo "####################################################"
 sh figures/manuscript/run_make_fig7_facs_evaluation.sh
 echo "####################################################"
+
+echo Running run_make_run_make_fig8_saddle_landscapes.sh
+echo "####################################################"
+sh figures/manuscript/run_make_run_make_fig8_saddle_landscapes.sh
+echo "####################################################"
