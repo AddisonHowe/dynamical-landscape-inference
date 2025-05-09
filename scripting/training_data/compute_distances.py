@@ -12,6 +12,7 @@ from plnn.loss_functions import cdist
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--datdir', type=str, required=True,
                     help="e.g. data/facs/facs_dec1_v1")
+parser.add_argument('-n', '--ncells_sample', type=int, required=True)
 parser.add_argument('-o', '--outdir', type=str, default="out/data_analysis")
 parser.add_argument('--seed', type=int, default=None)
 parser.add_argument('-v', '--verbosity', type=int, default=1)
@@ -19,7 +20,7 @@ args = parser.parse_args()
 
 DATDIR = args.datdir
 OUTDIR = args.outdir
-NCELLS_SAMPLE = 800
+NCELLS_SAMPLE = args.ncells_sample  # 800 for facs
 SEED = args.seed
 verbosity = args.verbosity
 

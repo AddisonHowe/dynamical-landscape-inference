@@ -26,5 +26,22 @@ datdirs=(
 
 for d in "${datdirs[@]}"; do
     echo $d
-    python scripting/training_data/compute_distances.py -d data/facs/$d
+    python scripting/training_data/compute_distances.py -d data/facs/$d -n 800
+done
+
+datdirs=(
+    "data_phi1_4a_distortion_v1_1"
+    "data_phi1_4a_distortion_v1_2"
+    "data_phi1_4a_distortion_v1_3"
+    "data_phi1_4a_distortion_v1_4"
+    "data_phi1_4a_distortion_v2_1"
+    "data_phi1_4a_distortion_v2_2"
+    "data_phi1_4a_distortion_v2_3"
+    "data_phi1_4a_distortion_v2_4"
+)
+
+for d in "${datdirs[@]}"; do
+    echo $d
+    python scripting/training_data/compute_distances.py \
+        -d data/training_data/distortions/paraboloids/$d -n 0
 done
