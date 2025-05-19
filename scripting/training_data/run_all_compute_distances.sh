@@ -37,6 +37,11 @@ datdirs=(
     # "data_phi1_4a_distortion_v1_4"
     "data_phi1_4a_distortion_v1_5"
     "data_phi1_4a_distortion_v1_6"
+    "data_phi1_4a_distortion_v1_7"
+    "data_phi1_4a_distortion_v1_8"
+    "data_phi1_4a_distortion_v1_9"
+    "data_phi1_4a_distortion_v1_10"
+    "data_phi1_4a_distortion_v1_11"
     "data_phi1_4a_distortion_v2_0"
     # "data_phi1_4a_distortion_v2_1"
     # "data_phi1_4a_distortion_v2_2"
@@ -44,6 +49,11 @@ datdirs=(
     # "data_phi1_4a_distortion_v2_4"
     "data_phi1_4a_distortion_v2_5"
     "data_phi1_4a_distortion_v2_6"
+    "data_phi1_4a_distortion_v2_7"
+    "data_phi1_4a_distortion_v2_8"
+    "data_phi1_4a_distortion_v2_9"
+    "data_phi1_4a_distortion_v2_10"
+    "data_phi1_4a_distortion_v2_11"
 )
 
 for d in "${datdirs[@]}"; do

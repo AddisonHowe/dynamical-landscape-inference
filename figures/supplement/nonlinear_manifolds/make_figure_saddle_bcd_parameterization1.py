@@ -1,4 +1,4 @@
-"""Binary choice landscape on a saddle, with orthogonal parameterization
+"""Binary choice landscape on a saddle, with parameterization version 1
 
 Generates plots used for SI Figure.
 """
@@ -19,11 +19,12 @@ import jax.random as jrandom
 from plnn.io import load_model_from_directory
 from plnn.models.algebraic_pl import AlgebraicPL
 from plnn.pl import plot_phi, plot_f, CHIR_COLOR, FGF_COLOR
+from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-o', '--outdir', type=str, required=True)
-parser.add_argument('-k1', '--kappa1', type=int, required=True)
-parser.add_argument('-k2', '--kappa2', type=int, required=True)
+parser.add_argument('-k1', '--kappa1', type=float, required=True)
+parser.add_argument('-k2', '--kappa2', type=float, required=True)
 parser.add_argument('-m', '--modeldir', type=str, required=True)
 parser.add_argument('-xl', '--xlims', type=float, nargs=2, default=None)
 parser.add_argument('-yl', '--ylims', type=float, nargs=2, default=None)
@@ -219,6 +220,23 @@ model_star, hyperparams = AlgebraicPL.make_model(
 model, _, epoch_loaded, _, _ = load_model_from_directory(
     modeldir
 )
+
+tilt_weights = model.get_parameters()['tilt.w'][0]
+tilt_bias = model.get_parameters()['tilt.b'][0]
+noise_parameter = model.get_sigma()
+
+if tilt_bias is None:
+    tilt_bias = np.zeros(tilt_weights.shape[0])
+else:
+    tilt_bias = tilt_bias[0]
+
+def signal_to_tilts(signal):
+    return np.dot(tilt_weights, signal) + tilt_bias
+
+def tilts_to_signals(tilts):
+    assert tilts.shape[0] == 2
+    y = tilts - tilt_bias[:,None]
+    return np.linalg.solve(tilt_weights, y)
 
 ##############################################################################
 ##############################################################################
@@ -807,4 +825,70 @@ ax.set_ylabel("")
 
 if SAVEPLOTS:
     plt.savefig(f"{OUTDIR}/phi_inferred.pdf")
+    plt.close()
+
+
+##############################################################################
+##############################################################################
+##  Inferred bifurcation diagram in tilt space
+
+FIGSIZE = (3*sf, 3*sf)
+
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
+
+bifcurves_inferred, bifcolors_inferred, aux_info = get_plnn_bifurcation_curves(
+    model, 
+    num_starts=200, 
+    maxiter=1000,
+    p1lims=[-10, 10],
+    p2lims=[-10, 10],
+    ds=1e-3,
+    min_ds=1e-8,
+    max_ds=1e-2,
+    max_delta_p=1e-1,
+    rho=1e-1,
+    return_aux_info=True,
+    rng=rng,
+    verbosity=0,
+)
+
+# Filter out singleton bifurcation curves and remove initial estimate point
+keepidxs = [i for i in range(len(bifcurves_inferred)) if len(bifcurves_inferred[i]) > 1]
+bifcurves_inferred = [bc[1:] for bc in bifcurves_inferred if len(bc) > 1]
+bifcolors_inferred = [bifcolors_inferred[i] for i in keepidxs]
+
+for curve, color in zip(bifcurves_inferred, bifcolors_inferred):
+    ax.plot(curve[:,0], curve[:,1], '-', color=color)
+
+ax.set_xlim(-2, 2)
+ax.set_ylim(-1, 3)
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([0, 2, 4])
+ax.set_xlabel("$\\tau_1$")
+ax.set_ylabel("$\\tau_2$")
+
+if SAVEPLOTS:
+    plt.savefig(f"{OUTDIR}/bifs_inferred_tilt_space.pdf", bbox_inches='tight')
+    plt.close()
+
+
+#################################  Bif diagram of inferred landscape in signals
+FIGNAME = "phi1_bifs_signals_inferred"
+FIGSIZE = (3*sf, 3*sf)
+
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE)
+
+for curve, color in zip(bifcurves_inferred, bifcolors_inferred):
+    curve_signal = tilts_to_signals(curve.T).T
+    ax.plot(curve_signal[:,0], curve_signal[:,1], '-', color=color)
+
+ax.set_xlabel("$s_1$")
+ax.set_ylabel("$s_2$")
+ax.set_xlim(-2, 2)
+ax.set_ylim(-1, 3)
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([0, 2, 4])
+
+if SAVEPLOTS:
+    plt.savefig(f"{OUTDIR}/bifs_inferred_signal_space.pdf", bbox_inches='tight')
     plt.close()
