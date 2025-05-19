@@ -66,6 +66,7 @@ sf = 1/2.54  # scale factor from [cm] to inches
 SIG_TO_PLOT = [0, 0]
 RES_PLOT = 100
 RES_VECT = 20
+RES_CURL = 50
 
 greys = plt.colormaps.get_cmap('Greys')(np.linspace(0.1, 1.0, 100))
 mygreys = LinearSegmentedColormap.from_list("myGreys", greys)
@@ -78,6 +79,7 @@ CMAP_VFIELD_SURFACE = mygreys # plt.colormaps.get_cmap('Greys')
 CMAP_VFIELD_INFERRED = mygreys # plt.colormaps.get_cmap('Greys')
 CMAP_VFIELD_EXPECTED = mygreys # plt.colormaps.get_cmap('Greys')
 CMAP_VFIELD_DIFF = plt.colormaps.get_cmap('RdYlBu')
+CMAP_CURL = plt.colormaps.get_cmap('coolwarm')
 
 CONTOUR_COLOR = 'purple'
 
@@ -125,6 +127,32 @@ def J_emb(u, v, k1, k2):
         [np.cosh(u) * np.sinh(v), 
          np.sinh(u) * np.cosh(v)],
     ])
+
+def curl_proj(x, y, k1, k2):
+    sqrt_k1 = np.sqrt(k1)
+    sqrt_k2 = np.sqrt(k2)
+    sqrt_k2y2_2 = np.sqrt(k2 * y**2 + 2)
+    sqrt_k1x2_2 = np.sqrt(k1 * x**2 + 2)
+    asinh_sqrt_k2_y = np.arcsinh(np.sqrt(k2) * y / np.sqrt(2))
+    asinh_sqrt_k1_x = np.arcsinh(np.sqrt(k1) * x / np.sqrt(2))
+    # Numerator parts
+    term1 = (4*y + 1) * (-2*k1*sqrt_k2*x**2 + sqrt_k1*(k2 * y**2 + 2) - 4*sqrt_k2)
+    term2 = asinh_sqrt_k2_y * (
+        2 * k1 * x**2 * (4 * sqrt_k2y2_2 - 3 * sqrt_k2) +
+        3 * sqrt_k1 * (k2 * y**2 + 2) +
+        4 * (4 * sqrt_k2y2_2 - 3 * sqrt_k2)
+    )
+    term3 = asinh_sqrt_k1_x * (
+        2 * k1 * x**2 * (4 * sqrt_k2y2_2 + 3 * sqrt_k2) -
+        24 * asinh_sqrt_k2_y * (
+            2 * k1 * sqrt_k2 * x**2 - sqrt_k1 * (k2 * y**2 + 2) + 4 * sqrt_k2
+        ) -
+        3 * sqrt_k1 * (k2 * y**2 + 2) +
+        4 * (4 * sqrt_k2y2_2 + 3 * sqrt_k2)
+    )
+    numerator = term1 - term2 - term3
+    denominator = 2 * sqrt_k1x2_2 * sqrt_k2y2_2
+    return numerator / denominator
 
 J_PI = np.array([[1,0,0],[0,1,0],[0,0,0]])
 
@@ -330,6 +358,14 @@ f_trans = f_trans.squeeze()
 fx_trans, fy_trans, fz_trans = f_trans.T
 f_trans_norms = np.sqrt(fx_trans**2 + fy_trans**2 + fz_trans**2)
 assert np.allclose(f_trans, f_proj)
+
+# Compute the curl of the transformed vector field
+# Get embedded vector positions in (x,y,z) coordinates.
+x_curl = np.linspace(*XLIMS, RES_CURL)
+y_curl = np.linspace(*YLIMS, RES_CURL)
+xs_curl, ys_curl = np.meshgrid(x_curl, y_curl)
+xys_curl = np.array([xs_curl.flatten(), ys_curl.flatten()]).T
+curl = curl_proj(xs_curl, ys_curl, k1, k2)
 
 
 ##############################################################################
@@ -743,6 +779,38 @@ ax.set_ylim(*YLIMS)
 
 if SAVEPLOTS:
     plt.savefig(f"{OUTDIR}/metric_field.pdf")
+    plt.close()
+
+
+##############################################################################
+##############################################################################
+##  Curl of transformed vector field
+
+FIGSIZE = (3.5*sf, 3.5*sf)
+
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout="constrained")
+
+# cnorm = LogNorm(curl.min(), curl.max())
+# colors = CMAP_VFIELD_PROJ2D(cnorm(f_trans_norms))
+im = ax.imshow(
+    curl, interpolation='bilinear', cmap=CMAP_CURL,
+    origin='lower', extent=[*XLIMS, *YLIMS],
+    # vmax=abs(Z).max(), vmin=-abs(Z).max()
+)
+
+# Plot the circle
+plot_circle_2d(circ_xs, circ_ys, ax)
+
+ax.set_xlabel("")
+ax.set_ylabel("")
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([-2, 0, 2])
+
+ax.set_xlim(*XLIMS)
+ax.set_ylim(*YLIMS)
+
+if SAVEPLOTS:
+    plt.savefig(f"{OUTDIR}/curl_plot.pdf")
     plt.close()
 
 

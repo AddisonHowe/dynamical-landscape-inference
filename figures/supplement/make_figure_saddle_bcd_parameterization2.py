@@ -1,4 +1,4 @@
-"""Binary choice landscape on a saddle, with orthogonal parameterization
+"""Binary choice landscape on a saddle, with non-orthogonal parameterization
 
 Generates plots used for SI Figure.
 """
