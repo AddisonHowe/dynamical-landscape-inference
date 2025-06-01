@@ -238,9 +238,87 @@ copy_and_distort_data $indata $name $k1 $k2 $transform
 # Generate data: data_phi1_4a_distortion_v1r_1
 indata=data_phi1_4a
 name=distortion_v1r_1
+k1=1.0
+k2=1.0
+transform=v1_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+# Generate data: data_phi1_4a_distortion_v1r_2
+indata=data_phi1_4a
+name=distortion_v1r_1
+k1=1.0
+k2=2.0
+transform=v1_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+# Generate data: data_phi1_4a_distortion_v1r_3
+indata=data_phi1_4a
+name=distortion_v1r_1
+k1=2.0
+k2=1.0
+transform=v1_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+# Generate data: data_phi1_4a_distortion_v1r_4
+indata=data_phi1_4a
+name=distortion_v1r_1
 k1=2.0
 k2=2.0
 transform=v1_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+
+# Generate data: data_phi1_4a_distortion_v2r_1
+indata=data_phi1_4a
+name=distortion_v2r_1
+k1=1.0
+k2=1.0
+transform=v2_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+# Generate data: data_phi1_4a_distortion_v2r_2
+indata=data_phi1_4a
+name=distortion_v2r_1
+k1=1.0
+k2=2.0
+transform=v2_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+# Generate data: data_phi1_4a_distortion_v2r_3
+indata=data_phi1_4a
+name=distortion_v2r_1
+k1=2.0
+k2=1.0
+transform=v2_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
+
+# Generate data: data_phi1_4a_distortion_v2r_4
+indata=data_phi1_4a
+name=distortion_v2r_1
+k1=2.0
+k2=2.0
+transform=v2_rotation
 theta="-0.7853981633974483"
 du=1
 dv=1
