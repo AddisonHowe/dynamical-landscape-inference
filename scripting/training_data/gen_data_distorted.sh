@@ -20,13 +20,20 @@ function copy_and_distort_data() {
     k1=$3
     k2=$4
     transform=$5
+    theta=$6
+    du=$7
+    dv=$8
+    : "${theta:=0}"
+    : "${du:=0}"
+    : "${dv:=0}"
     i=${datdir}/${indata}
     o=${outdir}/${indata}_${name}
     mkdir -p $o
     cp -r ${i}/* $o
     printf "kappa1\t${k1}\nkappa2\t${k2}\n" > ${o}/distortion_parameters.tsv
     python scripting/training_data/distort_data.py -i $o -o $o \
-        -k1 "${k1}" -k2 "${k2}" -t ${transform}
+        -k1 "${k1}" -k2 "${k2}" -t ${transform} \
+        --theta "${theta}" --du "${du}" --dv "${dv}"
 }
 
 # Generate data: data_phi1_4a_distortion_v1_0
@@ -223,3 +230,18 @@ k1=2.0
 k2=2.0
 transform=v2
 copy_and_distort_data $indata $name $k1 $k2 $transform
+
+
+#############################################################################
+#############################################################################
+
+# Generate data: data_phi1_4a_distortion_v1r_1
+indata=data_phi1_4a
+name=distortion_v1r_1
+k1=2.0
+k2=2.0
+transform=v1_rotation
+theta="-0.7853981633974483"
+du=1
+dv=1
+copy_and_distort_data $indata $name $k1 $k2 $transform $theta $du $dv
