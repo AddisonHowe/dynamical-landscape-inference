@@ -12,7 +12,7 @@
 #=============================================================================
 
 eval "$(conda shell.bash hook)"
-conda activate env
+conda activate env-nocuda
 
 # datdirs=(
 #     "facs_dec1_v1"
@@ -66,14 +66,31 @@ datdirs=(
     # "data_phi1_1a_distortion_v1r_2"
     # "data_phi1_1a_distortion_v1r_3"
     # "data_phi1_1a_distortion_v1r_4"
-    "data_phi1_1a_distortion_v2r_1"
-    "data_phi1_1a_distortion_v2r_2"
-    "data_phi1_1a_distortion_v2r_3"
-    "data_phi1_1a_distortion_v2r_4"
+    # "data_phi1_1a_distortion_v2r_1"
+    # "data_phi1_1a_distortion_v2r_2"
+    # "data_phi1_1a_distortion_v2r_3"
+    # "data_phi1_1a_distortion_v2r_4"
 )
 
+# for d in "${datdirs[@]}"; do
+#     echo $d
+#     python scripting/training_data/compute_distances.py \
+#         -d data/training_data/distortions/paraboloids/$d -n 0
+# done
+
+datdirs=(
+    # data_phi1_1a_saddle_v1a_0
+    # data_phi1_1a_saddle_v1a_1
+    data_phi1_1a_saddle_v1a_3
+    # data_phi1_1a_saddle_v1b_0
+    # data_phi1_1a_saddle_v1b_1
+    data_phi1_1a_saddle_v1b_3
+    data_phi1_1a_saddle_v1c_0
+    data_phi1_1a_saddle_v1c_1
+    data_phi1_1a_saddle_v1c_3
+)
 for d in "${datdirs[@]}"; do
     echo $d
     python scripting/training_data/compute_distances.py \
-        -d data/training_data/distortions/paraboloids/$d -n 0
+        -d data/training_data/saddle_v1/$d -n 0
 done
