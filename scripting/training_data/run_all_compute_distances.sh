@@ -11,7 +11,7 @@
 # EXAMPLE: sh run_all_compute_distances.sh
 #=============================================================================
 
-eval "$(conda shell.bash hook)"
+eval "$($CONDA_EXE shell.bash hook)"
 conda activate env-nocuda
 
 # datdirs=(
