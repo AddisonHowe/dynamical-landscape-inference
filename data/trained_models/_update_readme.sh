@@ -6,7 +6,7 @@ echo_data_string () {
     modelgroup=$1
     datdir=$2
     if [[ $modelgroup == "facs" ]]; then
-        echo '- Data source: `'${datdir#data/facs/}'`\n'
+        echo '- Data source: `'${datdir#data/training_data/facs/}'`\n'
     else 
         echo '- Data source: `'${datdir#data/training_data/}'`\n'
     fi

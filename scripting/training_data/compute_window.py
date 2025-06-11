@@ -10,7 +10,7 @@ from plnn.dataset import get_dataloaders
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--datdir', type=str, required=True,
-                    help="e.g. data/facs/facs_dec1_v1")
+                    help="e.g. data/training_data/facs/facs_dec1_v1")
 parser.add_argument('-o', '--outdir', type=str, default="out/data_analysis")
 parser.add_argument('--seed', type=int, default=None)
 parser.add_argument('-v', '--verbosity', type=int, default=1)

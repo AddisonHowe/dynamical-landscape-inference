@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #=============================================================================
 #
 # FILE: run_all_compute_window.sh
@@ -6,13 +6,10 @@
 # USAGE: run_all_compute_window.sh
 #
 # DESCRIPTION: Run the compute_window.py script on all facs datasets in 
-# data/facs/ directory.
+# data/training_data/facs/ directory.
 #
 # EXAMPLE: sh run_all_compute_window.sh
 #=============================================================================
-
-eval "$($CONDA_EXE shell.bash hook)"
-conda activate env
 
 datdirs=(
     "facs_dec1_v1"
@@ -26,5 +23,5 @@ datdirs=(
 
 for d in "${datdirs[@]}"; do
     echo $d
-    python scripting/training_data/compute_window.py -d data/facs/$d
+    python scripting/training_data/compute_window.py -d data/training_data/facs/$d
 done

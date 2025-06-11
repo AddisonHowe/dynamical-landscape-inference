@@ -31,7 +31,7 @@ SEED = 123816453
 rng = np.random.default_rng(seed=SEED)
 
 MODELDIR = f"data/trained_models/facs/{args.modeldir}"
-DATDIR = "data/facs/facs_dec1_v4"
+DATDIR = "data/training_data/facs/facs_dec1_v4"
 
 OUTDIR = "figures/manuscript/out/fig6_facs_training"
 SAVEPLOTS = True

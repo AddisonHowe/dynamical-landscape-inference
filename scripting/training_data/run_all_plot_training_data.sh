@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #=============================================================================
 #
 # FILE: run_all_plot_training_data.sh
@@ -9,9 +9,6 @@
 #
 # EXAMPLE: sh scripting/run_all_plot_training_data.sh
 #=============================================================================
-
-eval "$($CONDA_EXE shell.bash hook)"
-conda activate env-nocuda
 
 datdirs=(
     saddle_v1/data_phi1_1a_saddle_v1a_0

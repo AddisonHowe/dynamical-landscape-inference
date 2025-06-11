@@ -1,5 +1,10 @@
 """Binary choice landscape on a saddle, with parameterization version 1
 
+https://mathoverflow.net/questions/25620/geodesics-on-a-hyperbolic-paraboloid
+https://math.stackexchange.com/questions/4802161/geodesics-on-a-saddle-surface
+https://math.stackexchange.com/questions/4976686/what-is-the-surface-gradient
+    -of-a-scalar-function-defined-only-on-a-parametric-s
+
 Generates plots used for SI Figure.
 """
 
@@ -16,9 +21,10 @@ jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp
 import jax.random as jrandom
 
-from plnn.io import load_model_from_directory
+from plnn.io import load_model_from_directory, load_model_training_metadata
 from plnn.models.algebraic_pl import AlgebraicPL
-from plnn.pl import plot_phi, plot_f, CHIR_COLOR, FGF_COLOR
+from plnn.pl import CHIR_COLOR, FGF_COLOR
+from plnn.dataset import get_dataloaders
 from cont.plnn_bifurcations import get_plnn_bifurcation_curves 
 
 parser = argparse.ArgumentParser()
@@ -67,6 +73,7 @@ sf = 1/2.54  # scale factor from [cm] to inches
 SIG_TO_PLOT = [0, 0]
 RES_PLOT = 100
 RES_VECT = 20
+RES_CURL = 50
 
 greys = plt.colormaps.get_cmap('Greys')(np.linspace(0.1, 1.0, 100))
 mygreys = LinearSegmentedColormap.from_list("myGreys", greys)
@@ -79,6 +86,7 @@ CMAP_VFIELD_SURFACE = mygreys # plt.colormaps.get_cmap('Greys')
 CMAP_VFIELD_INFERRED = mygreys # plt.colormaps.get_cmap('Greys')
 CMAP_VFIELD_EXPECTED = mygreys
 CMAP_VFIELD_DIFF = plt.colormaps.get_cmap('RdYlBu')
+CMAP_CURL = plt.colormaps.get_cmap('coolwarm_r')
 
 CONTOUR_COLOR = 'purple'
 
@@ -128,6 +136,24 @@ def J_emb(u, v, k1, k2):
     ])
 
 J_PI = np.array([[1,0,0],[0,1,0],[0,0,0]])
+
+def curl_proj(x, y, k1, k2):
+    sqrt_k1 = np.sqrt(k1)
+    sqrt_k2 = np.sqrt(k2)
+    sqrt_2 = np.sqrt(2)
+    sinh_k1x = np.arcsinh(sqrt_k1 * x / sqrt_2)
+    sinh_k2y = np.arcsinh(sqrt_k2 * y / sqrt_2)
+    term1 = k1 * (k2 * (x ** 2 - y ** 2) - 2) + 2 * k2
+    term2 = sinh_k1x * (24 * sinh_k2y - 7) + 7 * sinh_k2y - 1
+    numerator = term1 * term2
+    denominator = np.sqrt(k2 * y ** 2 + 2) * np.sqrt(k1 * k2 * (k1 * x ** 2 + 2))
+    return numerator / denominator
+
+
+_curltest = curl_proj(np.array([0., 1., 1.]), np.array([0., 1., 2.]), 1, 2)
+assert np.allclose(
+    _curltest, np.array([-0.707106781187, 5.91512798916, -14.1031235704])
+), f"Bad curls! Got {_curltest}"
 
 
 def plot_circle_2d(xs, ys, ax):
@@ -218,6 +244,10 @@ model_star, hyperparams = AlgebraicPL.make_model(
 # )
 
 model, _, epoch_loaded, _, _ = load_model_from_directory(
+    modeldir
+)
+
+logged_args, run_dict = load_model_training_metadata(
     modeldir
 )
 
@@ -348,6 +378,14 @@ f_trans = f_trans.squeeze()
 fx_trans, fy_trans, fz_trans = f_trans.T
 f_trans_norms = np.sqrt(fx_trans**2 + fy_trans**2 + fz_trans**2)
 assert np.allclose(f_trans, f_proj)
+
+# Compute the curl of the transformed vector field
+# Get embedded vector positions in (x,y,z) coordinates.
+x_curl = np.linspace(*XLIMS, RES_CURL)
+y_curl = np.linspace(*YLIMS, RES_CURL)
+xs_curl, ys_curl = np.meshgrid(x_curl, y_curl)
+xys_curl = np.array([xs_curl.flatten(), ys_curl.flatten()]).T
+curl = curl_proj(xs_curl, ys_curl, k1, k2)
 
 
 ##############################################################################
@@ -891,4 +929,95 @@ ax.set_yticks([0, 2, 4])
 
 if SAVEPLOTS:
     plt.savefig(f"{OUTDIR}/bifs_inferred_signal_space.pdf", bbox_inches='tight')
+    plt.close()
+
+
+##############################################################################
+##############################################################################
+##  Curl of transformed vector field
+
+FIGSIZE = (5*sf, 3.5*sf)
+
+fig, ax = plt.subplots(1, 1, figsize=FIGSIZE, layout="constrained")
+
+# cnorm = LogNorm(curl.min(), curl.max())
+# colors = CMAP_VFIELD_PROJ2D(cnorm(f_trans_norms))
+im = ax.imshow(
+    curl, interpolation='bilinear', cmap=CMAP_CURL,
+    origin='lower', extent=[*XLIMS, *YLIMS],
+    vmax=abs(curl).max(), vmin=-abs(curl).max()
+)
+
+divider = make_axes_locatable(ax)
+cax = divider.append_axes('right', size='5%', pad=0.05)
+fig = ax.figure
+cbar = fig.colorbar(im, cax=cax)
+
+
+# Plot the circle
+plot_circle_2d(circ_xs, circ_ys, ax)
+
+ax.set_xlabel("")
+ax.set_ylabel("")
+ax.set_xticks([-2, 0, 2])
+ax.set_yticks([-2, 0, 2])
+
+ax.set_xlim(*XLIMS)
+ax.set_ylim(*YLIMS)
+
+if SAVEPLOTS:
+    plt.savefig(f"{OUTDIR}/curl_plot.pdf")
+    plt.close()
+
+
+##############################################################################
+##############################################################################
+##  Data distribution
+
+datdir_train = logged_args['training_data']
+datdir_valid = logged_args['validation_data']
+nsims_train = np.genfromtxt(f"{datdir_train}/nsims.txt", dtype=int)
+nsims_valid = np.genfromtxt(f"{datdir_valid}/nsims.txt", dtype=int)
+train_loader, _, train_dset, _ = get_dataloaders(
+    datdir_train, datdir_valid, nsims_train, nsims_valid,
+    shuffle_train=False,
+    shuffle_valid=False,
+    return_datasets=True,
+    include_test_data=False,
+    batch_size_test=1,
+    ncells_sample=0,
+    seed=rng.integers(2**32)
+)
+
+fig, ax = plt.subplots(1, 1)
+
+for d in train_dset:
+    x0 = d[0][1]
+    x1 = d[1]
+    ax.plot(x0[:,0], x0[:,1], '.k', markersize=1, alpha=0.5, rasterized=True)
+    ax.plot(x1[:,0], x1[:,1], '.k', markersize=1, alpha=0.5, rasterized=True)
+
+idxs = np.sort(rng.integers(len(train_dset), size=5))
+
+for idx in idxs:
+    x0 = train_dset[idx][0][1]
+    x1 = train_dset[idx][1]
+    l, = ax.plot(
+        x0[:,0], x0[:,1], '.', markersize=1, alpha=1,
+        label=f"obs {idx} (n={len(x0)})",
+        rasterized=False,
+    )
+    ax.plot(
+        x1[:,0], x1[:,1], '.', markersize=1, alpha=1,
+        color=l.get_color(),
+        rasterized=False,
+    )
+
+ax.set_xlabel("$x$")
+ax.set_ylabel("$y$")
+ax.set_title("Transformed data")
+ax.legend()
+
+if SAVEPLOTS:
+    plt.savefig(f"{OUTDIR}/training_data.pdf")
     plt.close()

@@ -11,7 +11,7 @@ from plnn.loss_functions import cdist
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--datdir', type=str, required=True,
-                    help="e.g. data/facs/facs_dec1_v1")
+                    help="e.g. data/training_data/facs/facs_dec1_v1")
 parser.add_argument('-n', '--ncells_sample', type=int, required=True)
 parser.add_argument('-o', '--outdir', type=str, default="out/data_analysis")
 parser.add_argument('--seed', type=int, default=None)
