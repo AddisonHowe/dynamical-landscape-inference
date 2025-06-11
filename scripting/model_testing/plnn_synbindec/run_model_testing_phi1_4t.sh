@@ -11,7 +11,7 @@
 # EXAMPLE: sh run_model_testing_phi1_4t.sh
 #=============================================================================
 
-datdirbase=data/training_data
+datdirbase=data/training_data/basic
 datdir=data_phi1_4t
 
 key_list="test"

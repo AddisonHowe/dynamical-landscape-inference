@@ -27,9 +27,9 @@ pip install git+https://github.com/AddisonHowe/plnn.git@v0.1.0-alpha
 
 ## Synthetic data generation
 
-We first generate synthetic data using the shell scripts available in `data/training_data/`.
+We first generate synthetic data using the shell scripts available in `data/training_data/basic`.
 These scripts run the PLNN module `plnn/data_generation/generate_data.py`.
-Each data-generating script is described below, and will produce a subdirectory in the `data/training_data/` folder.
+Each data-generating script is described below, and will produce a subdirectory in the `data/training_data/basic` folder.
 This subdirectory will contain three datasets: training, validation, and testing.
 
 ### Binary choice landscape
@@ -39,7 +39,7 @@ $$\phi(x,y;\boldsymbol{\tau})=x^4+y^4+y^3-4x^2y+y^2+\tau_1x+\tau_2y.$$
 We assume that two signals, $s_1$ and $s_2$, map identically to the tilt parameters, so that in terms of the signal
 $$\phi(x,y;\boldsymbol{s})=x^4+y^4+y^3-4x^2y+y^2+s_1x+s_2y.$$
 
-- [`data_phi1_1[abc]`](data/training_data/gen_data_phi1_1a.sh) \
+- [`data_phi1_1[abc]`](data/training_data/basic/gen_data_phi1_1a.sh) \
     $T=100$, \
     $\Delta T=[10,50,100]$, \
     $\sigma=0.1$, \
@@ -51,7 +51,7 @@ $$\phi(x,y;\boldsymbol{s})=x^4+y^4+y^3-4x^2y+y^2+s_1x+s_2y.$$
     $s_{burn}=s|_{t=0}$, \
     $x_0=(0, -0.5)$
     
-- [`data_phi1_2[abc]`](data/training_data/gen_data_phi1_2a.sh) \
+- [`data_phi1_2[abc]`](data/training_data/basic/gen_data_phi1_2a.sh) \
     $T=20$, \
     $\Delta T=[5,10,20]$, \
     $\sigma=0.1$, \
@@ -63,7 +63,7 @@ $$\phi(x,y;\boldsymbol{s})=x^4+y^4+y^3-4x^2y+y^2+s_1x+s_2y.$$
     $s_{burn}=s|_{t=0}$, \
     $x_0=(0, -0.5)$
 
-- [`data_phi1_3[abc]`](data/training_data/gen_data_phi1_3a.sh) \
+- [`data_phi1_3[abc]`](data/training_data/basic/gen_data_phi1_3a.sh) \
     $T=20$, \
     $\Delta T=[5,10,20]$, \
     $\sigma=0.1$, \
@@ -75,7 +75,7 @@ $$\phi(x,y;\boldsymbol{s})=x^4+y^4+y^3-4x^2y+y^2+s_1x+s_2y.$$
     $s_{burn}=s|_{t=0}$, \
     $x_0=(0, -0.5)$
 
-- [`data_phi1_4[abc]`](data/training_data/gen_data_phi1_4a.sh) \
+- [`data_phi1_4[abc]`](data/training_data/basic/gen_data_phi1_4a.sh) \
     $T=20$, \
     $\Delta T=[5,10,20]$, \
     $\sigma=0.1$, \
@@ -94,7 +94,7 @@ $$\phi(x,y;\boldsymbol{\tau})=x^4+y^4+x^3-2xy^2-x^2+\tau_1x+\tau_2y.$$
 Again, we assume that two signals, $s_1$ and $s_2$, map identically to the tilt parameters, so that 
 $$\phi(x,y;\boldsymbol{s})=x^4+y^4+x^3-2xy^2-x^2+s_1x+s_2y.$$
 
-- [`data_phi2_1[abc]`](data/training_data/gen_data_phi2_1a.sh) \
+- [`data_phi2_1[abc]`](data/training_data/basic/gen_data_phi2_1a.sh) \
     $T=100$, \
     $\Delta T=[10,50,100]$, \
     $\sigma=0.3$, \
@@ -113,7 +113,7 @@ $$\phi(x,y;\boldsymbol{\tau})=\frac{1}{4}x^2 + \frac{1}{9}y^2 +\tau_1x+\tau_2y.$
 Here too we assume that two signals, $s_1$ and $s_2$, map identically to the tilt parameters, so that 
 $$\phi(x,y;\boldsymbol{s})=\frac{1}{4}x^2 + \frac{1}{9}y^2 +s_1x+s_2y.$$
 
-- [`data_phiq_1a`](data/training_data/gen_data_phiq_1a.sh) \
+- [`data_phiq_1a`](data/training_data/basic/gen_data_phiq_1a.sh) \
     $T=100$, \
     $\Delta T=10$, \
     $\sigma=0.5$, \
@@ -125,7 +125,7 @@ $$\phi(x,y;\boldsymbol{s})=\frac{1}{4}x^2 + \frac{1}{9}y^2 +s_1x+s_2y.$$
     $s_{burn}=s|_{t=0}$, \
     $x_0=(0, -0.5)$
 
-- [`data_phiq_2a`](data/training_data/gen_data_phiq_2a.sh) \
+- [`data_phiq_2a`](data/training_data/basic/gen_data_phiq_2a.sh) \
     $T=100$, \
     $\Delta T=10$, \
     $\sigma=0.1$, \
@@ -220,11 +220,11 @@ The `model_eval` entrypoint allows us to do so, as follows:
 ```bash
 model_eval \
     --basedir data/trained_models/<plnn_synbindec> \  # location of trained model
-    --modeldir <modelname> \            # the model directory
-    --datdirbase data/training_data \   # base directory containing data
-    --datdir <datdir> \                 # data directory
-    --dataset <train-test-valid> \      # subdirectory within <datdir>
-    --dt0 <dt0> \                       # initial model timestep to use
+    --modeldir <modelname> \                     # the model directory
+    --datdirbase data/training_data/<subdir> \   # base directory containing data
+    --datdir <datdir> \                          # data directory
+    --dataset <train-test-valid> \               # subdirectory within <datdir>
+    --dt0 <dt0> \                                # initial model timestep to use
     --batch_size 20 \       # batch size
     --nresamp 1 \           # num resamplings to perform for each datapoint
     --nreps 10 \            # num simulations to run for each (re)sampled datapoint

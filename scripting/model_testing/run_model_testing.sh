@@ -18,7 +18,7 @@
 #
 # EXAMPLE: sh run_model_testing.sh data/trained_models/plnn_synbindec \
 #                                  model_phi1_1a_v_mmd1 \
-#                                  data/training_data \
+#                                  data/training_data/basic \
 #                                  data_phi1_1a \
 #                                  --key_list test train --dt0_list -1 0.1 \
 #                                  --nsamp 20 --nreps 10 --batch_size 5

@@ -11,7 +11,7 @@
 # EXAMPLE: sh run_model_testing_facs_dec1_v1_argset2.sh
 #=============================================================================
 
-datdirbase=data/facs
+datdirbase=data/training_data/basic/facs
 datdir=facs_dec1_v1
 
 key_list="test train valid"
