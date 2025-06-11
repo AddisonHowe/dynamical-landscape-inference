@@ -81,13 +81,16 @@ datdirs=(
 datdirs=(
     # data_phi1_1a_saddle_v1a_0
     # data_phi1_1a_saddle_v1a_1
-    data_phi1_1a_saddle_v1a_3
+    # data_phi1_1a_saddle_v1a_3
     # data_phi1_1a_saddle_v1b_0
     # data_phi1_1a_saddle_v1b_1
-    data_phi1_1a_saddle_v1b_3
-    data_phi1_1a_saddle_v1c_0
-    data_phi1_1a_saddle_v1c_1
-    data_phi1_1a_saddle_v1c_3
+    # data_phi1_1a_saddle_v1b_3
+    # data_phi1_1a_saddle_v1c_0
+    # data_phi1_1a_saddle_v1c_1
+    # data_phi1_1a_saddle_v1c_3
+    # data_phi1_1a_saddle_v1d_0
+    # data_phi1_1a_saddle_v1d_1
+    data_phi1_1a_saddle_v1d_3
 )
 for d in "${datdirs[@]}"; do
     echo $d
