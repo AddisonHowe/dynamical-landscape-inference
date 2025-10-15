@@ -25,6 +25,8 @@ boolean_args=(
     "reduce_dt_on_nan"
     "reduce_cf_on_nan"
     "model_do_sample"
+    "enc_layer_normalize"
+    "dec_layer_normalize"
 )
 
 cmd="python -m plnn.main "
