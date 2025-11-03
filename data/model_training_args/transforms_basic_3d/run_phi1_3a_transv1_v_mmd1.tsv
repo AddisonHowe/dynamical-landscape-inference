@@ -25,7 +25,7 @@ reduce_cf_on_nan			True
 cf_reduction_factor			0.1
 nan_max_attempts			4
 ##############################################################  Architecture
-model_type					deep_phi
+model_type					vae_plnn
 confine						True
 confinement_factor			0.1
 phi_hidden_dims				16 32 32 16
@@ -37,10 +37,10 @@ tilt_hidden_acts			None
 tilt_final_act				None
 tilt_layer_normalize		False
 enc_hidden_dims			    4 8 8 8
-enc_hidden_acts			    relu
+enc_hidden_acts			    softplus softplus softplus softplus
 enc_layer_normalize		    False
 dec_hidden_dims			    8 8 8 4
-dec_hidden_acts			    relu
+dec_hidden_acts			    softplus softplus softplus softplus
 dec_final_act				None
 dec_layer_normalize		    False
 ##############################################################  Model Constants
