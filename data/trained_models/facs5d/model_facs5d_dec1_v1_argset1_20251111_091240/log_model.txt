@@ -1,0 +1,170 @@
+__annotations__ : {'encoder_mlp': <class 'equinox._module.Module'>, 'encoder_mu': <class 'equinox._module.Module'>, 'encoder_logvar': <class 'equinox._module.Module'>, 'decoder': <class 'equinox._module.Module'>, 'latent_dim': <class 'int'>, 'include_enc_bias': <class 'bool'>, 'include_dec_bias': <class 'bool'>}
+__doc__ : "VAEPLNN(key, dtype=<class 'jax.numpy.float32'>, *, latent_dim: int, include_enc_bias, enc_hidden_dims, enc_hidden_acts, enc_layer_normalize, include_dec_bias, dec_hidden_dims, dec_hidden_acts, dec_final_act, dec_layer_normalize, **kwargs)"
+__module__ : 'plnn.models.vae_plnn'
+confine : True
+confinement_factor : 0.1
+decoder : Sequential(
+  layers=(
+    Linear(
+      weight=f64[8,2],
+      bias=None,
+      in_features=2,
+      out_features=8,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[8,8],
+      bias=None,
+      in_features=8,
+      out_features=8,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[8,8],
+      bias=None,
+      in_features=8,
+      out_features=8,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[4,8],
+      bias=None,
+      in_features=8,
+      out_features=4,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[5,4],
+      bias=None,
+      in_features=4,
+      out_features=5,
+      use_bias=False
+    )
+  )
+)
+dt0 : 0.005
+encoder_logvar : Linear(
+  weight=f64[2,8],
+  bias=None,
+  in_features=8,
+  out_features=2,
+  use_bias=False
+)
+encoder_mlp : Sequential(
+  layers=(
+    Linear(
+      weight=f64[4,5],
+      bias=None,
+      in_features=5,
+      out_features=4,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[8,4],
+      bias=None,
+      in_features=4,
+      out_features=8,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[8,8],
+      bias=None,
+      in_features=8,
+      out_features=8,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[8,8],
+      bias=None,
+      in_features=8,
+      out_features=8,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>)
+  )
+)
+encoder_mu : Linear(
+  weight=f64[2,8],
+  bias=None,
+  in_features=8,
+  out_features=2,
+  use_bias=False
+)
+include_dec_bias : False
+include_enc_bias : False
+include_phi_bias : False
+include_tilt_bias : False
+latent_dim : 2
+logsigma : Array(-2.99573227, dtype=float64)
+model_type : 'vae_plnn'
+ncells : 800
+ndims : 5
+nparams : 2
+nsigparams : 4
+nsigs : 2
+phi_module : Sequential(
+  layers=(
+    Linear(
+      weight=f64[16,2],
+      bias=None,
+      in_features=2,
+      out_features=16,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[32,16],
+      bias=None,
+      in_features=16,
+      out_features=32,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[32,32],
+      bias=None,
+      in_features=32,
+      out_features=32,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[16,32],
+      bias=None,
+      in_features=32,
+      out_features=16,
+      use_bias=False
+    ),
+    Lambda(fn=<wrapped function softplus>),
+    Linear(
+      weight=f64[1,16],
+      bias=None,
+      in_features=16,
+      out_features=1,
+      use_bias=False
+    )
+  )
+)
+sample_cells : False
+sigma_init : 0.05
+signal_type : 'sigmoid'
+solver : 'heun'
+tilt_module : Sequential(
+  layers=(
+    Linear(
+      weight=f64[2,2],
+      bias=None,
+      in_features=2,
+      out_features=2,
+      use_bias=False
+    ),
+  )
+)
+vbt_tol : 1e-06
